@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Админ-панель — Ravil Boyukzada</title>
+<link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&family=Nunito:wght@400;700&family=Playfair+Display:wght@400;700&family=Merriweather:wght@400;700&family=Lora:wght@400;700&family=PT+Serif:wght@400;700&family=Oswald:wght@400;700&family=Rubik:wght@400;700&family=Space+Grotesk:wght@400;700&family=Caveat:wght@400;700&family=Pacifico&family=JetBrains+Mono:wght@400;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root, [data-theme="dark"] {
+    --bg: #0f1115;
+    --surface: #171a21;
+    --surface-2: #1f232c;
+    --surface-3: #262b36;
+    --border: #2b303b;
+    --text: #e8eaf0;
+    --text-dim: #9aa1af;
+    --accent: #22c55e;
+    --accent-hover: #16a34a;
+    --accent-soft: rgba(34,197,94,.16);
+    --danger: #e5566d;
+    --success: #4ade80;
+    --warning: #f5b83d;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
+  [data-theme="light"] {
+    --bg: #f4f6f5;
+    --surface: #ffffff;
+    --surface-2: #f0f2f1;
+    --surface-3: #e6e9e7;
+    --border: #dde1de;
+    --text: #1b2420;
+    --text-dim: #667169;
+    --accent: #16a34a;
+    --accent-hover: #128038;
+    --accent-soft: rgba(22,163,74,.12);
+    --danger: #d13a52;
+    --success: #16a34a;
+    --warning: #b6790a;
+    --shadow: 0 10px 30px rgba(0,0,0,.08);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    transition: background .2s, color .2s;
+  }
+  img { max-width: 100%; }
+  a { color: var(--accent); }
+
+  /* ---------------- config warning ---------------- */
+  .config-warning { position: fixed; inset: 0; background: rgba(0,0,0,.75); display: flex; align-items: center; justify-content: center; z-index: 999; padding: 20px; }
+  .config-warning-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 32px; max-width: 480px; text-align: center; }
+  .config-warning-box i { font-size: 40px; color: var(--warning); }
+  .config-warning-box code { background: var(--surface-2); padding: 2px 6px; border-radius: 4px; color: var(--accent); }
+
+  /* ---------------- login ---------------- */
+  .login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; background: radial-gradient(circle at top, var(--surface-2), var(--bg) 65%); }
+  .login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px 32px; width: 100%; max-width: 380px; text-align: center; box-shadow: var(--shadow); }
+  .login-logo { width: 56px; height: 56px; border-radius: 12px; margin-bottom: 16px; }
+  .login-card h1 { font-size: 22px; margin: 0 0 6px; }
+  .login-sub { color: var(--text-dim); font-size: 13px; margin-bottom: 24px; }
+  .login-card label { display: block; text-align: left; font-size: 13px; color: var(--text-dim); margin-bottom: 14px; }
+  .login-card input { display: block; width: 100%; margin-top: 6px; }
+
+  /* ---------------- form controls ---------------- */
+  input[type="text"], input[type="email"], input[type="password"], input[type="url"],
+  input[type="number"], input[type="tel"], input[type="datetime-local"], input[type="file"],
+  textarea, select {
+    width: 100%; background: var(--surface-2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 8px; padding: 10px 12px; font-size: 14px; outline: none; font-family: inherit;
+  }
+  input[type="color"] { width: 44px; height: 36px; padding: 2px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); cursor: pointer; }
+  input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+  textarea { resize: vertical; }
+  label { color: var(--text-dim); font-size: 13px; }
+  .checkbox-label { display: flex; align-items: center; gap: 8px; color: var(--text); }
+  .checkbox-label input { width: auto; }
+
+  /* ---------------- buttons ---------------- */
+  .btn { display: inline-flex; align-items: center; gap: 6px; border: none; border-radius: 8px; padding: 10px 16px; font-size: 14px; cursor: pointer; text-decoration: none; white-space: nowrap; font-family: inherit; }
+  .btn-primary { background: var(--accent); color: #08210f; font-weight: 600; }
+  .btn-primary:hover { background: var(--accent-hover); color: #fff; }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { background: var(--surface-2); }
+  .btn-danger { background: var(--danger); color: #fff; }
+  .btn-sm { padding: 6px 10px; font-size: 12px; }
+  .btn-block { width: 100%; justify-content: center; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  /* ---------------- header ---------------- */
+  .admin-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; background: var(--surface); border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 10px; }
+  .admin-header-left, .admin-header-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .admin-logo { width: 32px; height: 32px; border-radius: 8px; }
+  .current-user-email { color: var(--text-dim); font-size: 13px; }
+  .live-clock { font-size: 13px; color: var(--text-dim); background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; display: flex; align-items: center; gap: 6px; }
+  .live-clock i { color: var(--accent); }
+  .theme-toggle { background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text); font-size: 16px; }
+  .theme-toggle:hover { border-color: var(--accent); }
+
+  /* ---------------- body layout ---------------- */
+  .admin-body { display: flex; min-height: calc(100vh - 65px); }
+  .admin-nav { width: 230px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); padding: 20px 12px; display: flex; flex-direction: column; gap: 4px; }
+  .nav-btn { display: flex; align-items: center; gap: 10px; background: transparent; border: none; color: var(--text-dim); padding: 10px 14px; border-radius: 8px; cursor: pointer; font-size: 14px; text-align: left; font-family: inherit; }
+  .nav-btn:hover { background: var(--surface-2); color: var(--text); }
+  .nav-btn.active { background: var(--accent); color: #08210f; font-weight: 600; }
+  .admin-main { flex: 1; padding: 28px 32px; max-width: 980px; }
+  .admin-main h2 { margin: 0 0 4px; }
+  .tab-hint { color: var(--text-dim); font-size: 13px; margin-bottom: 20px; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .content-form label { display: block; margin-bottom: 16px; }
+  .content-form input, .content-form textarea, .content-form select { margin-top: 6px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 16px; }
+  @media (max-width: 640px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } .admin-nav { width: 76px; } .nav-btn span { display:none; } }
+  .save-status { margin-left: 12px; font-size: 13px; color: var(--success); }
+  .form-error { color: var(--danger); font-size: 13px; margin-top: 10px; min-height: 18px; }
+
+  /* ---------------- image field / upload ---------------- */
+  .image-field { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
+  .image-field input { margin-top: 0; flex: 1; }
+  .image-preview { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); flex-shrink: 0; }
+  .upload-btn { position: relative; cursor: pointer; }
+
+  /* ---------------- generic lists (portfolio/blog) ---------------- */
+  .projects-list, .posts-list { display: flex; flex-direction: column; gap: 10px; }
+  .project-row, .post-row { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; }
+  .project-row img, .post-row img { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; flex-shrink: 0; background: var(--surface-2); }
+  .project-row-info, .post-row-info { flex: 1; min-width: 0; }
+  .project-row-title, .post-row-title { font-weight: 600; }
+  .project-row-meta, .post-row-meta { color: var(--text-dim); font-size: 12px; margin-top: 2px; }
+  .badge { display: inline-block; background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; font-size: 11px; margin-right: 6px; color: var(--text-dim); }
+  .badge.featured, .badge.accent { color: var(--accent); border-color: var(--accent-soft); }
+  .row-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+  /* ---------------- modal ---------------- */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px; overflow-y: auto; z-index: 500; }
+  .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; width: 100%; max-width: 640px; padding: 24px; }
+  .modal-box.modal-wide { max-width: 980px; }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .modal-header h3 { margin: 0; }
+  .modal-actions { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+
+  /* ---------------- blog list view ---------------- */
+  .blog-toolbar-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 10px; flex-wrap: wrap; }
+
+  /* ---------------- rich text editor ---------------- */
+  .editor-toolbar { display: flex; flex-wrap: wrap; gap: 6px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px 10px 0 0; padding: 8px; align-items: center; }
+  .editor-toolbar .sep { width: 1px; height: 24px; background: var(--border); margin: 0 4px; }
+  .tb-btn { background: transparent; border: 1px solid transparent; color: var(--text); border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 15px; }
+  .tb-btn:hover { background: var(--surface-3); border-color: var(--border); }
+  .tb-btn.active { background: var(--accent-soft); color: var(--accent); }
+  .tb-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 5px 8px; font-size: 13px; max-width: 150px; }
+  .tb-color-wrap { display: flex; align-items: center; gap: 4px; }
+
+  .editor-surface {
+    min-height: 380px; background: var(--surface); border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 10px 10px; padding: 20px 24px; font-size: 16px; line-height: 1.7; outline: none;
+  }
+  .editor-surface:focus { border-color: var(--accent); }
+  .editor-surface img, .editor-surface video { max-width: 100%; border-radius: 10px; margin: 12px 0; display: block; }
+  .editor-surface pre.code-block, .post-content pre.code-block {
+    background: #11151c; color: #d7e2f0; border: 1px solid #262f3d; border-radius: 10px; padding: 16px;
+    overflow-x: auto; font-family: "JetBrains Mono", "Fira Code", monospace; font-size: 13.5px; margin: 14px 0; position: relative;
+  }
+  .code-block-lang { position: absolute; top: 8px; right: 12px; font-size: 11px; color: var(--accent); opacity: .8; text-transform: uppercase; letter-spacing: .05em; }
+  .editor-surface blockquote, .post-content blockquote {
+    border-left: 3px solid var(--accent); margin: 14px 0; padding: 4px 16px; color: var(--text-dim); font-style: italic;
+  }
+
+  .file-attachment-box { border: 1px dashed var(--border); border-radius: 10px; padding: 14px; margin-top: 6px; }
+
+  /* mini utility */
+  .mt-16 { margin-top: 16px; }
+  .flex-1 { flex: 1; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+  <!-- ===================== CONFIG WARNING ===================== -->
+  <div id="config-warning" class="config-warning" style="display:none;">
+    <div class="config-warning-box">
+      <i class="ph ph-warning-circle"></i>
+      <h2>Supabase ещё не настроен</h2>
+      <p>
+        Открой файл <code>js/supabase-config.js</code> и впиши свои
+        <b>SUPABASE_URL</b>, <b>SUPABASE_ANON_KEY</b>, <b>CLOUDINARY_CLOUD_NAME</b>
+        и <b>CLOUDINARY_UPLOAD_PRESET</b>. Инструкция — в <code>ADMIN-README.md</code>.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===================== LOGIN SCREEN ===================== -->
+  <div id="login-screen" class="login-screen">
+    <form id="login-form" class="login-card">
+      <img src="images/logo.png" alt="logo" class="login-logo">
+      <h1>Вход в админ-панель</h1>
+      <p class="login-sub">Используй email и пароль, созданные в Supabase Authentication.</p>
+      <label>Email
+        <input type="email" id="login-email" autocomplete="username" required placeholder="you@example.com">
+      </label>
+      <label>Пароль
+        <input type="password" id="login-password" autocomplete="current-password" required placeholder="••••••••">
+      </label>
+      <button type="submit" class="btn btn-primary btn-block">Войти</button>
+      <div id="login-error" class="form-error"></div>
+    </form>
+  </div>
+
+  <!-- ===================== DASHBOARD ===================== -->
+  <div id="dashboard" class="dashboard" style="display:none;">
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <img src="images/logo.png" alt="logo" class="admin-logo">
+        <span>Админ-панель портфолио</span>
+      </div>
+      <div class="admin-header-right">
+        <span id="live-clock" class="live-clock"><i class="ph ph-clock"></i> —</span>
+        <button id="theme-toggle" class="theme-toggle" title="Светлая/тёмная тема">
+          <i class="ph ph-sun"></i>
+        </button>
+        <a href="index.html" target="_blank" class="btn btn-ghost btn-sm">
+          <i class="ph ph-arrow-square-out"></i> Открыть сайт
+        </a>
+        <span id="current-user-email" class="current-user-email"></span>
+        <button id="logout-btn" class="btn btn-ghost btn-sm">
+          <i class="ph ph-sign-out"></i> Выйти
+        </button>
+      </div>
+    </header>
+
+    <div class="admin-body">
+      <nav class="admin-nav">
+        <button class="nav-btn active" data-tab="hero"><i class="ph ph-house"></i> <span>Главная / Hero</span></button>
+        <button class="nav-btn" data-tab="profile"><i class="ph ph-user-circle"></i> <span>Профиль и соцсети</span></button>
+        <button class="nav-btn" data-tab="contact"><i class="ph ph-envelope"></i> <span>Контакты</span></button>
+        <button class="nav-btn" data-tab="misc"><i class="ph ph-sliders"></i> <span>Прочее</span></button>
+        <button class="nav-btn" data-tab="portfolio"><i class="ph ph-code-block"></i> <span>Портфолио</span></button>
+        <button class="nav-btn" data-tab="blog"><i class="ph ph-newspaper-clipping"></i> <span>Блог</span></button>
+      </nav>
+
+      <main class="admin-main">
+
+        <!-- HERO TAB -->
+        <section id="tab-hero" class="tab-panel active">
+          <h2>Главный экран (Hero)</h2>
+          <p class="tab-hint">Текст и цифры на главной странице index.html.</p>
+          <form id="form-hero" class="content-form">
+            <label>Приветственная строка (над заголовком)
+              <input type="text" data-key="hero_greeting" placeholder="HI, I'M A FULL-STACK DEVELOPER">
+            </label>
+            <label>Роли для анимации (через запятую)
+              <input type="text" data-key="hero_roles" data-type="list" placeholder="Full-Stack Developer, Data Analyst">
+            </label>
+            <label>Фото в hero-блоке (URL)
+              <div class="image-field">
+                <img class="image-preview" data-preview-for="hero_photo_url" alt="preview">
+                <input type="text" data-key="hero_photo_url" placeholder="images/user.jpg">
+                <label class="btn btn-ghost btn-sm upload-btn">
+                  <i class="ph ph-upload-simple"></i> Cloudinary
+                  <input type="file" accept="image/*" class="cloudinary-upload" data-target-key="hero_photo_url" hidden>
+                </label>
+              </div>
+            </label>
+            <div class="grid-3">
+              <label>Лет опыта
+                <input type="text" data-key="stat_years" placeholder="5">
+              </label>
+              <label>Проектов
+                <input type="text" data-key="stat_projects" placeholder="15">
+              </label>
+              <label>Клиентов (тыс.)
+                <input type="text" data-key="stat_clients" placeholder="2">
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <span class="save-status"></span>
+          </form>
+        </section>
+
+        <!-- PROFILE TAB -->
+        <section id="tab-profile" class="tab-panel">
+          <h2>Профиль и соцсети</h2>
+          <p class="tab-hint">Отображается в боковом меню на всех страницах.</p>
+          <form id="form-profile" class="content-form">
+            <label>Имя
+              <input type="text" data-key="profile_name" placeholder="Ravil Boyukzade">
+            </label>
+            <label>Должность
+              <input type="text" data-key="profile_role" placeholder="Full-stack developer">
+            </label>
+            <label>Фото профиля (URL)
+              <div class="image-field">
+                <img class="image-preview" data-preview-for="profile_photo_url" alt="preview">
+                <input type="text" data-key="profile_photo_url" placeholder="images/profile.png">
+                <label class="btn btn-ghost btn-sm upload-btn">
+                  <i class="ph ph-upload-simple"></i> Cloudinary
+                  <input type="file" accept="image/*" class="cloudinary-upload" data-target-key="profile_photo_url" hidden>
+                </label>
+              </div>
+            </label>
+            <div class="grid-2">
+              <label>Facebook
+                <input type="url" data-key="social_facebook" placeholder="https://facebook.com/...">
+              </label>
+              <label>GitHub
+                <input type="url" data-key="social_github" placeholder="https://github.com/...">
+              </label>
+              <label>LinkedIn
+                <input type="url" data-key="social_linkedin" placeholder="https://linkedin.com/in/...">
+              </label>
+              <label>Telegram
+                <input type="url" data-key="social_telegram" placeholder="https://t.me/...">
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <span class="save-status"></span>
+          </form>
+        </section>
+
+        <!-- CONTACT TAB -->
+        <section id="tab-contact" class="tab-panel">
+          <h2>Контакты</h2>
+          <p class="tab-hint">Отображается на странице contact.html.</p>
+          <form id="form-contact" class="content-form">
+            <label>Email
+              <input type="email" data-key="contact_email" placeholder="you@example.com">
+            </label>
+            <label>Телефон
+              <input type="text" data-key="contact_phone" placeholder="+994(50)543-13-92">
+            </label>
+            <label>Локация
+              <input type="text" data-key="contact_location" placeholder="Baku, Azerbaijan">
+            </label>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <span class="save-status"></span>
+          </form>
+        </section>
+
+        <!-- MISC TAB -->
+        <section id="tab-misc" class="tab-panel">
+          <h2>Прочее</h2>
+          <form id="form-misc" class="content-form">
+            <label>Имя в футере (копирайт)
+              <input type="text" data-key="footer_name" placeholder="Ravil Boyukzade">
+            </label>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <span class="save-status"></span>
+          </form>
+        </section>
+
+        <!-- PORTFOLIO TAB -->
+        <section id="tab-portfolio" class="tab-panel">
+          <h2>Проекты портфолио</h2>
+          <p class="tab-hint">
+            Категория определяет вкладку на portfolio.html: <b>frontend</b>, <b>backend</b>,
+            <b>business</b>, <b>analytics</b>. «Показывать на главной» — попадёт в Featured Projects.
+          </p>
+          <button id="new-project-btn" class="btn btn-primary" style="margin-bottom:16px;">
+            <i class="ph ph-plus"></i> Добавить проект
+          </button>
+          <div id="projects-list" class="projects-list"></div>
+        </section>
+
+        <!-- BLOG TAB -->
+        <section id="tab-blog" class="tab-panel">
+
+          <!-- Blog: list view -->
+          <div id="blog-list-view">
+            <h2>Статьи блога</h2>
+            <p class="tab-hint">Управляй записями, которые видят посетители на странице blog.html.</p>
+            <div class="blog-toolbar-top">
+              <button id="new-post-btn" class="btn btn-primary"><i class="ph ph-plus"></i> Новый пост</button>
+            </div>
+            <div id="posts-list" class="posts-list"></div>
+          </div>
+
+          <!-- Blog: editor view -->
+          <div id="blog-editor-view" class="hidden">
+            <div class="blog-toolbar-top">
+              <h2 id="post-editor-title" style="margin:0;">Новый пост</h2>
+              <button id="post-back-btn" class="btn btn-ghost btn-sm"><i class="ph ph-arrow-left"></i> К списку статей</button>
+            </div>
+
+            <form id="post-form" class="content-form">
+              <input type="hidden" id="post-id">
+
+              <label>Заголовок
+                <input type="text" id="post-title" required placeholder="Заголовок статьи">
+              </label>
+
+              <div class="grid-2">
+                <label>Slug (ссылка) — заполняется автоматически
+                  <input type="text" id="post-slug" placeholder="nazvanie-stati">
+                </label>
+                <label>Дата и время публикации (местное время)
+                  <input type="datetime-local" id="post-published-at">
+                </label>
+              </div>
+
+              <label>Обложка (для карточки в списке статей)
+                <div class="image-field">
+                  <img class="image-preview" id="post-cover-preview" alt="preview">
+                  <input type="text" id="post-cover-url" placeholder="URL обложки">
+                  <label class="btn btn-ghost btn-sm upload-btn">
+                    <i class="ph ph-upload-simple"></i> Cloudinary
+                    <input type="file" accept="image/*" class="cloudinary-upload" data-target-input="post-cover-url" hidden>
+                  </label>
+                </div>
+              </label>
+
+              <label>Краткое описание (показывается в списке статей)
+                <textarea id="post-excerpt" rows="2" placeholder="Пара предложений о том, что внутри статьи"></textarea>
+              </label>
+
+              <label>Теги (через запятую)
+                <input type="text" id="post-tags" placeholder="JavaScript, .NET, Совет дня">
+              </label>
+
+              <label>Содержание статьи</label>
+
+              <!-- Rich text toolbar -->
+              <div class="editor-toolbar" id="editor-toolbar">
+                <select class="tb-select" id="tb-font-family" title="Шрифт">
+                  <option value="">Шрифт…</option>
+                  <option value="Inter">Inter</option>
+                  <option value="Roboto">Roboto</option>
+                  <option value="Open Sans">Open Sans</option>
+                  <option value="Montserrat">Montserrat</option>
+                  <option value="Poppins">Poppins</option>
+                  <option value="Raleway">Raleway</option>
+                  <option value="Nunito">Nunito</option>
+                  <option value="Playfair Display">Playfair Display</option>
+                  <option value="Merriweather">Merriweather</option>
+                  <option value="Lora">Lora</option>
+                  <option value="PT Serif">PT Serif</option>
+                  <option value="Oswald">Oswald</option>
+                  <option value="Rubik">Rubik</option>
+                  <option value="Space Grotesk">Space Grotesk</option>
+                  <option value="Caveat">Caveat</option>
+                  <option value="Pacifico">Pacifico</option>
+                  <option value="JetBrains Mono">JetBrains Mono</option>
+                  <option value="Fira Code">Fira Code</option>
+                </select>
+
+                <select class="tb-select" id="tb-font-size" title="Размер текста">
+                  <option value="">Размер…</option>
+                  <option value="13px">Мелкий</option>
+                  <option value="16px" selected>Обычный</option>
+                  <option value="20px">Крупный</option>
+                  <option value="26px">Заголовок</option>
+                  <option value="34px">Огромный</option>
+                </select>
+
+                <div class="sep"></div>
+
+                <button type="button" class="tb-btn" data-cmd="bold" title="Жирный"><i class="ph-bold ph-text-b"></i></button>
+                <button type="button" class="tb-btn" data-cmd="italic" title="Курсив"><i class="ph ph-text-italic"></i></button>
+                <button type="button" class="tb-btn" data-cmd="underline" title="Подчёркнутый"><i class="ph ph-text-underline"></i></button>
+                <button type="button" class="tb-btn" data-cmd="strikeThrough" title="Зачёркнутый"><i class="ph ph-text-strikethrough"></i></button>
+
+                <div class="sep"></div>
+
+                <div class="tb-color-wrap" title="Цвет текста">
+                  <i class="ph ph-text-aa"></i>
+                  <input type="color" id="tb-text-color" value="#e8eaf0">
+                </div>
+                <div class="tb-color-wrap" title="Цвет выделения (маркер)">
+                  <i class="ph ph-highlighter-circle"></i>
+                  <input type="color" id="tb-highlight-color" value="#fff59d">
+                </div>
+
+                <div class="sep"></div>
+
+                <button type="button" class="tb-btn" data-cmd="justifyLeft" title="По левому краю"><i class="ph ph-text-align-left"></i></button>
+                <button type="button" class="tb-btn" data-cmd="justifyCenter" title="По центру"><i class="ph ph-text-align-center"></i></button>
+                <button type="button" class="tb-btn" data-cmd="justifyRight" title="По правому краю"><i class="ph ph-text-align-right"></i></button>
+
+                <div class="sep"></div>
+
+                <button type="button" class="tb-btn" data-cmd="insertUnorderedList" title="Маркированный список"><i class="ph ph-list-bullets"></i></button>
+                <button type="button" class="tb-btn" data-cmd="insertOrderedList" title="Нумерованный список"><i class="ph ph-list-numbers"></i></button>
+                <button type="button" class="tb-btn" data-cmd="formatBlock:BLOCKQUOTE" title="Цитата"><i class="ph ph-quotes"></i></button>
+
+                <div class="sep"></div>
+
+                <button type="button" class="tb-btn" id="tb-link" title="Ссылка"><i class="ph ph-link"></i></button>
+                <button type="button" class="tb-btn" id="tb-image" title="Вставить изображение"><i class="ph ph-image"></i></button>
+                <button type="button" class="tb-btn" id="tb-video" title="Вставить видео"><i class="ph ph-video-camera"></i></button>
+                <button type="button" class="tb-btn" id="tb-code" title="Блок кода"><i class="ph ph-code"></i></button>
+                <button type="button" class="tb-btn" id="tb-word-import" title="Импорт из Word (.docx)"><i class="ph ph-file-doc"></i></button>
+                <input type="file" id="word-import-input" accept=".docx" hidden>
+
+                <div class="sep"></div>
+
+                <button type="button" class="tb-btn" data-cmd="removeFormat" title="Очистить форматирование"><i class="ph ph-eraser"></i></button>
+                <button type="button" class="tb-btn" data-cmd="undo" title="Отменить"><i class="ph ph-arrow-counter-clockwise"></i></button>
+                <button type="button" class="tb-btn" data-cmd="redo" title="Повторить"><i class="ph ph-arrow-clockwise"></i></button>
+              </div>
+
+              <div id="post-editor-surface" class="editor-surface" contenteditable="true" data-placeholder="Начни писать статью здесь…"></div>
+
+              <div class="file-attachment-box mt-16">
+                <label style="margin-bottom:10px; display:block;"><b>Прикреплённый файл для скачивания</b> (необязательно)</label>
+                <div class="grid-2">
+                  <label>Ссылка на файл (Cloudinary)
+                    <div class="image-field">
+                      <input type="text" id="post-attachment-url" placeholder="https://res.cloudinary.com/.../file.pdf">
+                      <label class="btn btn-ghost btn-sm upload-btn">
+                        <i class="ph ph-upload-simple"></i> Загрузить
+                        <input type="file" id="attachment-upload-input" hidden>
+                      </label>
+                    </div>
+                  </label>
+                  <label>Подпись кнопки скачивания
+                    <input type="text" id="post-attachment-label" placeholder="Скачать PDF-версию статьи">
+                  </label>
+                </div>
+              </div>
+
+              <div class="modal-actions" style="margin-top:20px;">
+                <button type="button" id="post-delete-btn" class="btn btn-danger hidden">
+                  <i class="ph ph-trash"></i> Удалить пост
+                </button>
+                <div class="flex-1"></div>
+                <span class="save-status" id="post-save-status"></span>
+                <button type="button" id="post-cancel-btn" class="btn btn-ghost">Отмена</button>
+                <button type="submit" class="btn btn-primary">Опубликовать</button>
+              </div>
+              <div id="post-form-error" class="form-error"></div>
+            </form>
+          </div>
+
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ===================== PROJECT EDIT MODAL ===================== -->
+  <div id="project-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="project-modal-title">Новый проект</h3>
+        <button id="project-modal-close" class="btn btn-ghost btn-sm" type="button"><i class="ph ph-x"></i></button>
+      </div>
+      <form id="project-form" class="content-form">
+        <input type="hidden" id="project-id">
+        <label>Название
+          <input type="text" id="project-title" required placeholder="Название проекта">
+        </label>
+        <label>Описание
+          <textarea id="project-description" rows="2" placeholder="Краткое описание проекта"></textarea>
+        </label>
+        <div class="grid-2">
+          <label>Категория
+            <select id="project-category">
+              <option value="frontend">Frontend</option>
+              <option value="backend">Backend</option>
+              <option value="business">Business Process Modeling</option>
+              <option value="analytics">Business Analytics</option>
+            </select>
+          </label>
+          <label>Порядок сортировки
+            <input type="number" id="project-sort-order" value="0">
+          </label>
+        </div>
+        <label>Теги / стек (через запятую)
+          <input type="text" id="project-tags" placeholder="HTML, CSS, JavaScript">
+        </label>
+        <label>Ссылка на проект
+          <input type="text" id="project-url" placeholder="https://... или index.html">
+        </label>
+        <div class="grid-2">
+          <label>Изображение 1
+            <div class="image-field">
+              <img class="image-preview" id="project-image-1-preview" alt="preview">
+              <input type="text" id="project-image-1" placeholder="URL изображения">
+              <label class="btn btn-ghost btn-sm upload-btn">
+                <i class="ph ph-upload-simple"></i> Cloudinary
+                <input type="file" accept="image/*" class="cloudinary-upload" data-target-input="project-image-1" hidden>
+              </label>
+            </div>
+          </label>
+          <label>Изображение 2 (при наведении)
+            <div class="image-field">
+              <img class="image-preview" id="project-image-2-preview" alt="preview">
+              <input type="text" id="project-image-2" placeholder="URL изображения">
+              <label class="btn btn-ghost btn-sm upload-btn">
+                <i class="ph ph-upload-simple"></i> Cloudinary
+                <input type="file" accept="image/*" class="cloudinary-upload" data-target-input="project-image-2" hidden>
+              </label>
+            </div>
+          </label>
+        </div>
+        <label class="checkbox-label">
+          <input type="checkbox" id="project-featured">
+          Показывать на главной (Featured Projects)
+        </label>
+        <div class="modal-actions">
+          <button type="button" id="project-delete-btn" class="btn btn-danger" style="display:none;">
+            <i class="ph ph-trash"></i> Удалить проект
+          </button>
+          <div class="flex-1"></div>
+          <button type="button" id="project-cancel-btn" class="btn btn-ghost">Отмена</button>
+          <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+        <div id="project-form-error" class="form-error"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== GENERIC MODAL (image/video/code prompts) ===================== -->
+  <div id="generic-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-box" id="generic-modal-box">
+      <div class="modal-header">
+        <h3 id="generic-modal-title">—</h3>
+        <button id="generic-modal-close" class="btn btn-ghost btn-sm" type="button"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="generic-modal-body" class="content-form"></div>
+      <div class="modal-actions">
+        <div class="flex-1"></div>
+        <button id="generic-modal-cancel" class="btn btn-ghost" type="button">Отмена</button>
+        <button id="generic-modal-confirm" class="btn btn-primary" type="button">ОК</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mammoth/mammoth.browser.min.js"></script>
+  <script>
+(function () {
+  "use strict";
+
+  const cfg = window.SITE_CONFIG || {};
+  const client = window.supabaseClient;
+  const $ = (sel, root) => (root || document).querySelector(sel);
+  const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+
+  // ---------------------------------------------------------------
+  // Config check
+  // ---------------------------------------------------------------
+  const notConfigured = !client || !cfg.SUPABASE_URL || cfg.SUPABASE_URL.indexOf("YOUR-PROJECT-ID") !== -1;
+  if (notConfigured) $("#config-warning").style.display = "flex";
+
+  const cloudinaryReady =
+    cfg.CLOUDINARY_CLOUD_NAME && cfg.CLOUDINARY_CLOUD_NAME.indexOf("YOUR-CLOUDINARY") === -1 &&
+    cfg.CLOUDINARY_UPLOAD_PRESET && cfg.CLOUDINARY_UPLOAD_PRESET.indexOf("YOUR-UNSIGNED") === -1;
+
+  function escapeHtml(str) {
+    return String(str == null ? "" : str).replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+    }[c]));
+  }
+
+  // ---------------------------------------------------------------
+  // Theme (dark / light) — remembered in localStorage
+  // ---------------------------------------------------------------
+  const THEME_KEY = "admin-theme";
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    const icon = $("#theme-toggle i");
+    if (icon) icon.className = theme === "light" ? "ph ph-moon" : "ph ph-sun";
+  }
+  const savedTheme = localStorage.getItem(THEME_KEY) || "dark";
+  applyTheme(savedTheme);
+  const themeToggleBtn = $("#theme-toggle");
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      const next = current === "light" ? "dark" : "light";
+      localStorage.setItem(THEME_KEY, next);
+      applyTheme(next);
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // Live local date/time clock
+  // ---------------------------------------------------------------
+  function tickClock() {
+    const el = $("#live-clock");
+    if (!el) return;
+    const now = new Date();
+    const formatted = now.toLocaleString("ru-RU", {
+      weekday: "short", day: "2-digit", month: "long", year: "numeric",
+      hour: "2-digit", minute: "2-digit", second: "2-digit",
+    });
+    el.innerHTML = '<i class="ph ph-clock"></i> ' + formatted;
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  function nowForDatetimeInput() {
+    const d = new Date();
+    const pad = (n) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
+  // ---------------------------------------------------------------
+  // Auth
+  // ---------------------------------------------------------------
+  function showLogin() {
+    $("#login-screen").style.display = "flex";
+    $("#dashboard").style.display = "none";
+  }
+  function showDashboard(user) {
+    $("#login-screen").style.display = "none";
+    $("#dashboard").style.display = "block";
+    $("#current-user-email").textContent = user ? user.email : "";
+    loadAllContent();
+    loadProjects();
+    if (window.__adminLoadPosts) window.__adminLoadPosts();
+  }
+  async function checkSession() {
+    if (!client) return;
+    const { data } = await client.auth.getSession();
+    if (data && data.session) showDashboard(data.session.user);
+    else showLogin();
+  }
+  if (client) {
+    $("#login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = $("#login-email").value.trim();
+      const password = $("#login-password").value;
+      const errEl = $("#login-error");
+      errEl.textContent = "";
+      const { data, error } = await client.auth.signInWithPassword({ email, password });
+      if (error) { errEl.textContent = "Не удалось войти: " + error.message; return; }
+      showDashboard(data.user);
+    });
+    $("#logout-btn").addEventListener("click", async () => {
+      await client.auth.signOut();
+      showLogin();
+    });
+    client.auth.onAuthStateChange((_event, session) => {
+      if (session) showDashboard(session.user);
+      else showLogin();
+    });
+    checkSession();
+  }
+
+  // ---------------------------------------------------------------
+  // Tabs
+  // ---------------------------------------------------------------
+  $$(".nav-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      $$(".nav-btn").forEach((b) => b.classList.remove("active"));
+      $$(".tab-panel").forEach((p) => p.classList.remove("active"));
+      btn.classList.add("active");
+      $("#tab-" + btn.dataset.tab).classList.add("active");
+    });
+  });
+
+  // ---------------------------------------------------------------
+  // Generic site_content editor (hero / profile / contact / misc)
+  // ---------------------------------------------------------------
+  let contentCache = {};
+  async function loadAllContent() {
+    const { data, error } = await client.from("site_content").select("key, value");
+    if (error) { console.error(error); return; }
+    contentCache = {};
+    data.forEach((row) => (contentCache[row.key] = row.value));
+    fillFormsFromCache();
+  }
+  function fillFormsFromCache() {
+    $$("[data-key]").forEach((input) => {
+      const key = input.dataset.key;
+      if (!(key in contentCache)) return;
+      const val = contentCache[key];
+      if (input.dataset.type === "list") input.value = Array.isArray(val) ? val.join(", ") : val || "";
+      else input.value = val == null ? "" : val;
+    });
+    $$("[data-preview-for]").forEach((img) => {
+      const key = img.dataset.previewFor;
+      if (contentCache[key]) img.src = contentCache[key];
+    });
+  }
+  async function saveFormKeys(form) {
+    const inputs = $$("[data-key]", form);
+    const statusEl = $(".save-status", form);
+    statusEl.textContent = "Сохранение...";
+    const rows = inputs.map((input) => {
+      let value;
+      if (input.dataset.type === "list") value = input.value.split(",").map((s) => s.trim()).filter(Boolean);
+      else value = input.value;
+      return { key: input.dataset.key, value };
+    });
+    const { error } = await client.from("site_content").upsert(rows, { onConflict: "key" });
+    if (error) { statusEl.textContent = "Ошибка: " + error.message; return; }
+    rows.forEach((r) => (contentCache[r.key] = r.value));
+    statusEl.textContent = "Сохранено ✓";
+    setTimeout(() => (statusEl.textContent = ""), 2500);
+  }
+  ["form-hero", "form-profile", "form-contact", "form-misc"].forEach((id) => {
+    const form = $("#" + id);
+    if (!form) return;
+    form.addEventListener("submit", (e) => { e.preventDefault(); saveFormKeys(form); });
+  });
+  $$("[data-preview-for]").forEach((img) => {
+    const key = img.dataset.previewFor;
+    const input = $(`[data-key="${key}"]`);
+    if (input) input.addEventListener("input", () => (img.src = input.value));
+  });
+
+  // ---------------------------------------------------------------
+  // Cloudinary upload (images / video / raw files)
+  // ---------------------------------------------------------------
+  async function uploadToCloudinary(file, resourceType) {
+    resourceType = resourceType || "auto";
+    if (!cloudinaryReady) {
+      alert("Cloudinary ещё не настроен. Заполни CLOUDINARY_CLOUD_NAME и CLOUDINARY_UPLOAD_PRESET в js/supabase-config.js");
+      return null;
+    }
+    const url = `https://api.cloudinary.com/v1_1/${cfg.CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", cfg.CLOUDINARY_UPLOAD_PRESET);
+    const res = await fetch(url, { method: "POST", body: formData });
+    if (!res.ok) { const t = await res.text(); throw new Error("Cloudinary: " + t); }
+    const json = await res.json();
+    return json.secure_url;
+  }
+  window.__uploadToCloudinary = uploadToCloudinary; // used by editor toolbar below
+
+  function wireUploadButtons(root) {
+    $$(".cloudinary-upload", root).forEach((fileInput) => {
+      fileInput.addEventListener("change", async () => {
+        const file = fileInput.files[0];
+        if (!file) return;
+        const label = fileInput.closest(".upload-btn");
+        const originalHtml = label ? label.innerHTML : "";
+        if (label) label.innerHTML = '<i class="ph ph-spinner"></i> Загрузка...';
+        try {
+          const secureUrl = await uploadToCloudinary(file, "image");
+          if (!secureUrl) return;
+          if (fileInput.dataset.targetKey) {
+            const targetInput = $(`[data-key="${fileInput.dataset.targetKey}"]`);
+            if (targetInput) targetInput.value = secureUrl;
+            const preview = $(`[data-preview-for="${fileInput.dataset.targetKey}"]`);
+            if (preview) preview.src = secureUrl;
+          } else if (fileInput.dataset.targetInput) {
+            const targetInput = document.getElementById(fileInput.dataset.targetInput);
+            if (targetInput) targetInput.value = secureUrl;
+            const preview = document.getElementById(fileInput.dataset.targetInput + "-preview");
+            if (preview) preview.src = secureUrl;
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Не удалось загрузить изображение: " + err.message);
+        } finally {
+          if (label) label.innerHTML = originalHtml;
+          fileInput.value = "";
+        }
+      });
+    });
+  }
+  wireUploadButtons(document);
+
+  // Attachment file upload (any type) for blog posts
+  const attachmentInput = $("#attachment-upload-input");
+  if (attachmentInput) {
+    attachmentInput.addEventListener("change", async () => {
+      const file = attachmentInput.files[0];
+      if (!file) return;
+      try {
+        const url = await uploadToCloudinary(file, "auto");
+        if (url) $("#post-attachment-url").value = url;
+      } catch (err) {
+        alert("Не удалось загрузить файл: " + err.message);
+      } finally {
+        attachmentInput.value = "";
+      }
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // Portfolio projects CRUD
+  // ---------------------------------------------------------------
+  let projectsCache = [];
+  async function loadProjects() {
+    const { data, error } = await client.from("portfolio_projects").select("*").order("sort_order", { ascending: true });
+    if (error) { console.error(error); return; }
+    projectsCache = data;
+    renderProjectsList();
+  }
+  function renderProjectsList() {
+    const container = $("#projects-list");
+    container.innerHTML = "";
+    projectsCache.forEach((p) => {
+      const row = document.createElement("div");
+      row.className = "project-row";
+      row.innerHTML = `
+        <img src="${p.image_url || "images/logo.png"}" alt="">
+        <div class="project-row-info">
+          <div class="project-row-title">${escapeHtml(p.title)}</div>
+          <div class="project-row-meta">
+            <span class="badge">${escapeHtml(p.category)}</span>
+            ${p.featured ? '<span class="badge featured">На главной</span>' : ""}
+            ${(p.tags || []).join(", ")}
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm edit-project-btn"><i class="ph ph-pencil-simple"></i> Изменить</button>`;
+      row.querySelector(".edit-project-btn").addEventListener("click", () => openProjectModal(p));
+      container.appendChild(row);
+    });
+  }
+  const projectModal = $("#project-modal");
+  const projectForm = $("#project-form");
+  function openProjectModal(project) {
+    $("#project-form-error").textContent = "";
+    if (project) {
+      $("#project-modal-title").textContent = "Редактировать проект";
+      $("#project-id").value = project.id;
+      $("#project-title").value = project.title || "";
+      $("#project-description").value = project.description || "";
+      $("#project-category").value = project.category || "frontend";
+      $("#project-sort-order").value = project.sort_order || 0;
+      $("#project-tags").value = (project.tags || []).join(", ");
+      $("#project-url").value = project.project_url || "";
+      $("#project-image-1").value = project.image_url || "";
+      $("#project-image-2").value = project.image_url_2 || "";
+      $("#project-image-1-preview").src = project.image_url || "";
+      $("#project-image-2-preview").src = project.image_url_2 || project.image_url || "";
+      $("#project-featured").checked = !!project.featured;
+      $("#project-delete-btn").style.display = "inline-flex";
+    } else {
+      $("#project-modal-title").textContent = "Новый проект";
+      projectForm.reset();
+      $("#project-id").value = "";
+      $("#project-image-1-preview").src = "";
+      $("#project-image-2-preview").src = "";
+      $("#project-delete-btn").style.display = "none";
+    }
+    projectModal.style.display = "flex";
+  }
+  function closeProjectModal() { projectModal.style.display = "none"; }
+  $("#new-project-btn").addEventListener("click", () => openProjectModal(null));
+  $("#project-modal-close").addEventListener("click", closeProjectModal);
+  $("#project-cancel-btn").addEventListener("click", closeProjectModal);
+  projectModal.addEventListener("click", (e) => { if (e.target === projectModal) closeProjectModal(); });
+  ["project-image-1", "project-image-2"].forEach((id) => {
+    const input = document.getElementById(id);
+    input.addEventListener("input", () => { document.getElementById(id + "-preview").src = input.value; });
+  });
+  wireUploadButtons(projectModal);
+
+  projectForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const errEl = $("#project-form-error");
+    errEl.textContent = "";
+    const id = $("#project-id").value;
+    const payload = {
+      title: $("#project-title").value.trim(),
+      description: $("#project-description").value.trim(),
+      category: $("#project-category").value,
+      sort_order: parseInt($("#project-sort-order").value, 10) || 0,
+      tags: $("#project-tags").value.split(",").map((s) => s.trim()).filter(Boolean),
+      project_url: $("#project-url").value.trim(),
+      image_url: $("#project-image-1").value.trim(),
+      image_url_2: $("#project-image-2").value.trim(),
+      featured: $("#project-featured").checked,
+    };
+    let result;
+    if (id) result = await client.from("portfolio_projects").update(payload).eq("id", id);
+    else result = await client.from("portfolio_projects").insert(payload);
+    if (result.error) { errEl.textContent = "Ошибка: " + result.error.message; return; }
+    closeProjectModal();
+    loadProjects();
+  });
+  $("#project-delete-btn").addEventListener("click", async () => {
+    const id = $("#project-id").value;
+    if (!id) return;
+    if (!confirm("Удалить этот проект без возможности восстановления?")) return;
+    const { error } = await client.from("portfolio_projects").delete().eq("id", id);
+    if (error) { $("#project-form-error").textContent = "Ошибка: " + error.message; return; }
+    closeProjectModal();
+    loadProjects();
+  });
+
+  window.__adminEscapeHtml = escapeHtml;
+  window.__adminHelpers = { $, $$, escapeHtml, nowForDatetimeInput, uploadToCloudinary };
+})();
+  </script>
+  <script>
+(function () {
+  "use strict";
+
+  const client = window.supabaseClient;
+  const $ = (sel, root) => (root || document).querySelector(sel);
+  const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+  const escapeHtml = window.__adminEscapeHtml;
+  const uploadToCloudinary = window.__uploadToCloudinary;
+
+  function nowForDatetimeInput() {
+    const d = new Date();
+    const pad = (n) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
+  function slugify(str) {
+    const map = { а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ё:"e",ж:"zh",з:"z",и:"i",й:"i",к:"k",л:"l",м:"m",н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",х:"h",ц:"ts",ч:"ch",ш:"sh",щ:"sch",ъ:"",ы:"y",ь:"",э:"e",ю:"yu",я:"ya" };
+    return String(str || "")
+      .toLowerCase()
+      .split("")
+      .map((ch) => (map[ch] !== undefined ? map[ch] : ch))
+      .join("")
+      .replace(/[^a-z0-9\s-]/g, "")
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
+  }
+
+  // ---------------------------------------------------------------
+  // Generic modal (used for image / video / code-block prompts)
+  // ---------------------------------------------------------------
+  const genericModal = $("#generic-modal");
+  function showGenericModal(title, bodyHtml) {
+    return new Promise((resolve) => {
+      $("#generic-modal-title").textContent = title;
+      $("#generic-modal-body").innerHTML = bodyHtml;
+      genericModal.style.display = "flex";
+
+      const confirmBtn = $("#generic-modal-confirm");
+      const cancelBtn = $("#generic-modal-cancel");
+      const closeBtn = $("#generic-modal-close");
+
+      function cleanup(result) {
+        genericModal.style.display = "none";
+        confirmBtn.removeEventListener("click", onConfirm);
+        cancelBtn.removeEventListener("click", onCancel);
+        closeBtn.removeEventListener("click", onCancel);
+        resolve(result);
+      }
+      function onConfirm() { cleanup(true); }
+      function onCancel() { cleanup(false); }
+      confirmBtn.addEventListener("click", onConfirm);
+      cancelBtn.addEventListener("click", onCancel);
+      closeBtn.addEventListener("click", onCancel);
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // Rich text editor
+  // ---------------------------------------------------------------
+  const editor = $("#post-editor-surface");
+  let savedRange = null;
+
+  function saveSelection() {
+    const sel = window.getSelection();
+    if (sel.rangeCount && editor.contains(sel.anchorNode)) {
+      savedRange = sel.getRangeAt(0).cloneRange();
+    }
+  }
+  if (editor) {
+    editor.addEventListener("keyup", saveSelection);
+    editor.addEventListener("mouseup", saveSelection);
+  }
+
+  function focusEditorWithSelection() {
+    editor.focus();
+    if (savedRange) {
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(savedRange);
+    }
+  }
+
+  function insertHtmlAtCursor(html) {
+    focusEditorWithSelection();
+    document.execCommand("insertHTML", false, html);
+    saveSelection();
+  }
+
+  function wrapSelectionWithStyle(styleProp, value) {
+    focusEditorWithSelection();
+    const sel = window.getSelection();
+    if (!sel.rangeCount || sel.isCollapsed) {
+      alert("Сначала выдели текст, который нужно изменить.");
+      return;
+    }
+    const range = sel.getRangeAt(0);
+    const span = document.createElement("span");
+    span.style[styleProp] = value;
+    const frag = range.extractContents();
+    span.appendChild(frag);
+    range.insertNode(span);
+    sel.removeAllRanges();
+    const newRange = document.createRange();
+    newRange.selectNodeContents(span);
+    sel.addRange(newRange);
+    savedRange = newRange.cloneRange();
+  }
+
+  // Basic execCommand-driven buttons (bold/italic/underline/lists/align/quote/undo/redo/clear)
+  $$(".tb-btn[data-cmd]").forEach((btn) => {
+    btn.addEventListener("mousedown", (e) => e.preventDefault()); // keep selection
+    btn.addEventListener("click", () => {
+      focusEditorWithSelection();
+      const cmd = btn.dataset.cmd;
+      if (cmd.indexOf(":") !== -1) {
+        const [c, v] = cmd.split(":");
+        document.execCommand(c, false, v);
+      } else {
+        document.execCommand(cmd, false, null);
+      }
+      saveSelection();
+    });
+  });
+
+  // Font family
+  const fontFamilySelect = $("#tb-font-family");
+  if (fontFamilySelect) {
+    fontFamilySelect.addEventListener("mousedown", saveSelection);
+    fontFamilySelect.addEventListener("change", () => {
+      if (!fontFamilySelect.value) return;
+      wrapSelectionWithStyle("fontFamily", `'${fontFamilySelect.value}', sans-serif`);
+      fontFamilySelect.value = "";
+    });
+  }
+  // Font size
+  const fontSizeSelect = $("#tb-font-size");
+  if (fontSizeSelect) {
+    fontSizeSelect.addEventListener("mousedown", saveSelection);
+    fontSizeSelect.addEventListener("change", () => {
+      if (!fontSizeSelect.value) return;
+      wrapSelectionWithStyle("fontSize", fontSizeSelect.value);
+    });
+  }
+  // Text color
+  const textColorInput = $("#tb-text-color");
+  if (textColorInput) {
+    textColorInput.addEventListener("mousedown", saveSelection);
+    textColorInput.addEventListener("input", () => wrapSelectionWithStyle("color", textColorInput.value));
+  }
+  // Highlight color
+  const highlightColorInput = $("#tb-highlight-color");
+  if (highlightColorInput) {
+    highlightColorInput.addEventListener("mousedown", saveSelection);
+    highlightColorInput.addEventListener("input", () => wrapSelectionWithStyle("backgroundColor", highlightColorInput.value));
+  }
+
+  // Link
+  const linkBtn = $("#tb-link");
+  if (linkBtn) {
+    linkBtn.addEventListener("mousedown", (e) => { e.preventDefault(); saveSelection(); });
+    linkBtn.addEventListener("click", async () => {
+      const ok = await showGenericModal(
+        "Вставить ссылку",
+        `<label>URL ссылки<input type="text" id="modal-link-url" placeholder="https://example.com"></label>`
+      );
+      if (!ok) return;
+      const url = $("#modal-link-url").value.trim();
+      if (!url) return;
+      focusEditorWithSelection();
+      document.execCommand("createLink", false, url);
+      saveSelection();
+    });
+  }
+
+  // Image insert (upload to Cloudinary OR paste a ready link)
+  const imageBtn = $("#tb-image");
+  if (imageBtn) {
+    imageBtn.addEventListener("mousedown", (e) => { e.preventDefault(); saveSelection(); });
+    imageBtn.addEventListener("click", async () => {
+      const ok = await showGenericModal(
+        "Вставить изображение",
+        `<label>Загрузить файл на Cloudinary<input type="file" id="modal-image-file" accept="image/*"></label>
+         <label>…или вставить готовую ссылку<input type="text" id="modal-image-url" placeholder="https://res.cloudinary.com/.../photo.jpg"></label>`
+      );
+      if (!ok) return;
+      const file = $("#modal-image-file").files[0];
+      let url = $("#modal-image-url").value.trim();
+      try {
+        if (file) url = await uploadToCloudinary(file, "image");
+        if (!url) return;
+        insertHtmlAtCursor(`<img src="${url}" alt="">`);
+      } catch (err) {
+        alert("Не удалось вставить изображение: " + err.message);
+      }
+    });
+  }
+
+  // Video insert (upload to Cloudinary OR paste a ready Cloudinary video link)
+  const videoBtn = $("#tb-video");
+  if (videoBtn) {
+    videoBtn.addEventListener("mousedown", (e) => { e.preventDefault(); saveSelection(); });
+    videoBtn.addEventListener("click", async () => {
+      const ok = await showGenericModal(
+        "Вставить видео",
+        `<label>Загрузить видеофайл на Cloudinary<input type="file" id="modal-video-file" accept="video/*"></label>
+         <label>…или вставить готовую ссылку на видео (Cloudinary)<input type="text" id="modal-video-url" placeholder="https://res.cloudinary.com/.../video.mp4"></label>`
+      );
+      if (!ok) return;
+      const file = $("#modal-video-file").files[0];
+      let url = $("#modal-video-url").value.trim();
+      try {
+        if (file) url = await uploadToCloudinary(file, "video");
+        if (!url) return;
+        insertHtmlAtCursor(`<video controls src="${url}"></video>`);
+      } catch (err) {
+        alert("Не удалось вставить видео: " + err.message);
+      }
+    });
+  }
+
+  // Code block insert
+  const codeBtn = $("#tb-code");
+  if (codeBtn) {
+    codeBtn.addEventListener("mousedown", (e) => { e.preventDefault(); saveSelection(); });
+    codeBtn.addEventListener("click", async () => {
+      const ok = await showGenericModal(
+        "Вставить блок кода",
+        `<label>Язык / подпись (необязательно)<input type="text" id="modal-code-lang" placeholder="JavaScript, Python, HTML..."></label>
+         <label>Код<textarea id="modal-code-text" rows="10" style="font-family:'JetBrains Mono',monospace;" placeholder="Вставь сюда код"></textarea></label>`
+      );
+      if (!ok) return;
+      const lang = $("#modal-code-lang").value.trim();
+      const code = $("#modal-code-text").value;
+      if (!code.trim()) return;
+      const langBadge = lang ? `<div class="code-block-lang">${escapeHtml(lang)}</div>` : "";
+      insertHtmlAtCursor(`<pre class="code-block">${langBadge}<code>${escapeHtml(code)}</code></pre><p><br></p>`);
+    });
+  }
+
+  // Word (.docx) import via mammoth.js
+  const wordImportBtn = $("#tb-word-import");
+  const wordImportInput = $("#word-import-input");
+  if (wordImportBtn && wordImportInput) {
+    wordImportBtn.addEventListener("mousedown", (e) => { e.preventDefault(); saveSelection(); });
+    wordImportBtn.addEventListener("click", () => wordImportInput.click());
+    wordImportInput.addEventListener("change", async () => {
+      const file = wordImportInput.files[0];
+      if (!file) return;
+      if (typeof window.mammoth === "undefined") {
+        alert("Библиотека для чтения Word-документов не загрузилась. Проверь подключение к интернету и обнови страницу.");
+        return;
+      }
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const result = await window.mammoth.convertToHtml({ arrayBuffer });
+        insertHtmlAtCursor(result.value + "<p><br></p>");
+      } catch (err) {
+        alert("Не удалось прочитать документ: " + err.message);
+      } finally {
+        wordImportInput.value = "";
+      }
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // Blog posts CRUD
+  // ---------------------------------------------------------------
+  let postsCache = [];
+
+  async function loadPosts() {
+    if (!client) return;
+    const { data, error } = await client.from("blog_posts").select("*").order("published_at", { ascending: false });
+    if (error) { console.error(error); return; }
+    postsCache = data;
+    renderPostsList();
+  }
+  window.__adminLoadPosts = loadPosts; // called from part A after login
+
+  function renderPostsList() {
+    const container = $("#posts-list");
+    if (!container) return;
+    if (!postsCache.length) {
+      container.innerHTML = `<p class="tab-hint">Пока нет ни одной статьи. Нажми «Новый пост», чтобы написать первую.</p>`;
+      return;
+    }
+    container.innerHTML = "";
+    postsCache.forEach((p) => {
+      const row = document.createElement("div");
+      row.className = "post-row";
+      const dateStr = p.published_at ? new Date(p.published_at).toLocaleString("ru-RU", { day: "2-digit", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "";
+      row.innerHTML = `
+        <img src="${p.cover_image_url || "images/logo.png"}" alt="">
+        <div class="post-row-info">
+          <div class="post-row-title">${escapeHtml(p.title)}</div>
+          <div class="post-row-meta">
+            <span class="badge accent"><i class="ph ph-clock" style="margin-right:4px;"></i>${dateStr}</span>
+            ${(p.tags || []).map((t) => `<span class="badge">${escapeHtml(t)}</span>`).join("")}
+          </div>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn-ghost btn-sm edit-post-btn"><i class="ph ph-pencil-simple"></i> Изменить</button>
+        </div>`;
+      row.querySelector(".edit-post-btn").addEventListener("click", () => openPostEditor(p));
+      container.appendChild(row);
+    });
+  }
+
+  const blogListView = $("#blog-list-view");
+  const blogEditorView = $("#blog-editor-view");
+  const postForm = $("#post-form");
+
+  function openPostEditor(post) {
+    $("#post-form-error").textContent = "";
+    $("#post-save-status").textContent = "";
+    if (post) {
+      $("#post-editor-title").textContent = "Редактировать статью";
+      $("#post-id").value = post.id;
+      $("#post-title").value = post.title || "";
+      $("#post-slug").value = post.slug || "";
+      $("#post-excerpt").value = post.excerpt || "";
+      $("#post-tags").value = (post.tags || []).join(", ");
+      $("#post-cover-url").value = post.cover_image_url || "";
+      $("#post-cover-preview").src = post.cover_image_url || "";
+      $("#post-attachment-url").value = post.attachment_url || "";
+      $("#post-attachment-label").value = post.attachment_label || "";
+      editor.innerHTML = post.content_html || "";
+      const d = post.published_at ? new Date(post.published_at) : new Date();
+      const pad = (n) => String(n).padStart(2, "0");
+      $("#post-published-at").value = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      $("#post-delete-btn").classList.remove("hidden");
+    } else {
+      $("#post-editor-title").textContent = "Новый пост";
+      postForm.reset();
+      $("#post-id").value = "";
+      editor.innerHTML = "";
+      $("#post-cover-preview").src = "";
+      $("#post-published-at").value = nowForDatetimeInput();
+      $("#post-delete-btn").classList.add("hidden");
+    }
+    blogListView.classList.add("hidden");
+    blogEditorView.classList.remove("hidden");
+  }
+  function closePostEditor() {
+    blogEditorView.classList.add("hidden");
+    blogListView.classList.remove("hidden");
+  }
+
+  $("#new-post-btn").addEventListener("click", () => openPostEditor(null));
+  $("#post-back-btn").addEventListener("click", closePostEditor);
+  $("#post-cancel-btn").addEventListener("click", closePostEditor);
+
+  $("#post-cover-url").addEventListener("input", (e) => { $("#post-cover-preview").src = e.target.value; });
+
+  // auto-slug from title, unless user already typed their own slug
+  let slugTouched = false;
+  $("#post-slug").addEventListener("input", () => { slugTouched = true; });
+  $("#post-title").addEventListener("input", (e) => {
+    if (!slugTouched) $("#post-slug").value = slugify(e.target.value);
+  });
+
+  postForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const errEl = $("#post-form-error");
+    const statusEl = $("#post-save-status");
+    errEl.textContent = "";
+
+    const id = $("#post-id").value;
+    let slug = $("#post-slug").value.trim() || slugify($("#post-title").value);
+    const publishedAtLocal = $("#post-published-at").value;
+
+    const payload = {
+      title: $("#post-title").value.trim(),
+      slug: slug,
+      excerpt: $("#post-excerpt").value.trim(),
+      tags: $("#post-tags").value.split(",").map((s) => s.trim()).filter(Boolean),
+      cover_image_url: $("#post-cover-url").value.trim(),
+      content_html: editor.innerHTML,
+      attachment_url: $("#post-attachment-url").value.trim(),
+      attachment_label: $("#post-attachment-label").value.trim(),
+      published_at: publishedAtLocal ? new Date(publishedAtLocal).toISOString() : new Date().toISOString(),
+    };
+
+    statusEl.textContent = "Сохранение...";
+    let result;
+    if (id) result = await client.from("blog_posts").update(payload).eq("id", id);
+    else result = await client.from("blog_posts").insert(payload);
+
+    if (result.error) {
+      statusEl.textContent = "";
+      errEl.textContent = "Ошибка: " + result.error.message;
+      return;
+    }
+    statusEl.textContent = "Сохранено ✓";
+    loadPosts();
+    setTimeout(closePostEditor, 400);
+  });
+
+  $("#post-delete-btn").addEventListener("click", async () => {
+    const id = $("#post-id").value;
+    if (!id) return;
+    if (!confirm("Удалить эту статью без возможности восстановления?")) return;
+    const { error } = await client.from("blog_posts").delete().eq("id", id);
+    if (error) { $("#post-form-error").textContent = "Ошибка: " + error.message; return; }
+    loadPosts();
+    closePostEditor();
+  });
+})();
+  </script>
+</body>
+</html>

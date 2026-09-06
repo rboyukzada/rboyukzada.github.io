@@ -123,11 +123,33 @@
   .save-status { margin-left: 12px; font-size: 13px; color: var(--success); }
   .form-error { color: var(--danger); font-size: 13px; margin-top: 10px; min-height: 18px; }
 
-  /* ---------------- image field / upload ---------------- */
-  .image-field { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
-  .image-field input { margin-top: 0; flex: 1; }
-  .image-preview { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); flex-shrink: 0; }
+  /* ---------------- media field (image/video url + live preview) ---------------- */
+  .media-field { display: flex; gap: 16px; margin-top: 8px; align-items: flex-start; flex-wrap: wrap; }
+  .media-preview {
+    width: 180px; height: 120px; flex-shrink: 0; border-radius: 12px; background: var(--surface-2);
+    border: 1.5px dashed var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center;
+  }
+  .media-preview img, .media-preview video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .media-placeholder { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-dim); font-size: 11.5px; text-align: center; padding: 0 10px; }
+  .media-placeholder i { font-size: 26px; opacity: .7; }
+  .media-field-controls { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 10px; }
+  .media-field-controls input[type="text"] { margin-top: 0; }
+  .media-field-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .media-hint { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+  .media-hint b { color: var(--accent); font-weight: 600; }
   .upload-btn { position: relative; cursor: pointer; }
+  .file-link-field { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
+  .file-link-field input[type="text"] { margin-top: 0; flex: 1; }
+
+  /* ---------------- section headings with icon badge ---------------- */
+  .section-heading { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; }
+  .section-icon {
+    width: 46px; height: 46px; border-radius: 13px; background: var(--accent-soft); color: var(--accent);
+    display: flex; align-items: center; justify-content: center; font-size: 21px; flex-shrink: 0;
+  }
+  .section-heading-text h2 { margin: 0 0 4px; }
+  .section-heading-text .tab-hint { margin-bottom: 0; }
+
 
   /* ---------------- generic lists (portfolio/blog) ---------------- */
   .projects-list, .posts-list { display: flex; flex-direction: column; gap: 10px; }
@@ -251,8 +273,13 @@
 
         <!-- HERO TAB -->
         <section id="tab-hero" class="tab-panel active">
-          <h2>Главный экран (Hero)</h2>
-          <p class="tab-hint">Текст и цифры на главной странице index.html.</p>
+          <div class="section-heading">
+            <span class="section-icon"><i class="ph ph-house"></i></span>
+            <div class="section-heading-text">
+              <h2>Главный экран (Hero)</h2>
+              <p class="tab-hint">Текст и цифры на главной странице index.html.</p>
+            </div>
+          </div>
           <form id="form-hero" class="content-form">
             <label>Приветственная строка (над заголовком)
               <input type="text" data-key="hero_greeting" placeholder="HI, I'M A FULL-STACK DEVELOPER">
@@ -260,14 +287,19 @@
             <label>Роли для анимации (через запятую)
               <input type="text" data-key="hero_roles" data-type="list" placeholder="Full-Stack Developer, Data Analyst">
             </label>
-            <label>Фото в hero-блоке (URL)
-              <div class="image-field">
-                <img class="image-preview" data-preview-for="hero_photo_url" alt="preview">
-                <input type="text" data-key="hero_photo_url" placeholder="images/user.jpg">
-                <label class="btn btn-ghost btn-sm upload-btn">
-                  <i class="ph ph-upload-simple"></i> Cloudinary
-                  <input type="file" accept="image/*" class="cloudinary-upload" data-target-key="hero_photo_url" hidden>
-                </label>
+            <label>Фото / видео в hero-блоке
+              <div class="media-field">
+                <div class="media-preview" id="preview-hero_photo_url"></div>
+                <div class="media-field-controls">
+                  <input type="text" data-key="hero_photo_url" data-media-preview="preview-hero_photo_url" placeholder="Вставь ссылку с Cloudinary (картинка или видео)">
+                  <div class="media-field-actions">
+                    <label class="btn btn-ghost btn-sm upload-btn">
+                      <i class="ph ph-upload-simple"></i> Загрузить файл
+                      <input type="file" accept="image/*,video/*" class="cloudinary-upload" data-target-key="hero_photo_url" hidden>
+                    </label>
+                    <span class="media-hint">Совет: залей файл на <b>cloudinary.com</b> → скопируй ссылку → вставь сюда</span>
+                  </div>
+                </div>
               </div>
             </label>
             <div class="grid-3">
@@ -288,8 +320,13 @@
 
         <!-- PROFILE TAB -->
         <section id="tab-profile" class="tab-panel">
-          <h2>Профиль и соцсети</h2>
-          <p class="tab-hint">Отображается в боковом меню на всех страницах.</p>
+          <div class="section-heading">
+            <span class="section-icon"><i class="ph ph-user-circle"></i></span>
+            <div class="section-heading-text">
+              <h2>Профиль и соцсети</h2>
+              <p class="tab-hint">Отображается в боковом меню на всех страницах.</p>
+            </div>
+          </div>
           <form id="form-profile" class="content-form">
             <label>Имя
               <input type="text" data-key="profile_name" placeholder="Ravil Boyukzade">
@@ -297,14 +334,19 @@
             <label>Должность
               <input type="text" data-key="profile_role" placeholder="Full-stack developer">
             </label>
-            <label>Фото профиля (URL)
-              <div class="image-field">
-                <img class="image-preview" data-preview-for="profile_photo_url" alt="preview">
-                <input type="text" data-key="profile_photo_url" placeholder="images/profile.png">
-                <label class="btn btn-ghost btn-sm upload-btn">
-                  <i class="ph ph-upload-simple"></i> Cloudinary
-                  <input type="file" accept="image/*" class="cloudinary-upload" data-target-key="profile_photo_url" hidden>
-                </label>
+            <label>Фото профиля
+              <div class="media-field">
+                <div class="media-preview" id="preview-profile_photo_url"></div>
+                <div class="media-field-controls">
+                  <input type="text" data-key="profile_photo_url" data-media-preview="preview-profile_photo_url" placeholder="Вставь ссылку с Cloudinary">
+                  <div class="media-field-actions">
+                    <label class="btn btn-ghost btn-sm upload-btn">
+                      <i class="ph ph-upload-simple"></i> Загрузить файл
+                      <input type="file" accept="image/*" class="cloudinary-upload" data-target-key="profile_photo_url" hidden>
+                    </label>
+                    <span class="media-hint">Совет: залей файл на <b>cloudinary.com</b> → скопируй ссылку → вставь сюда</span>
+                  </div>
+                </div>
               </div>
             </label>
             <div class="grid-2">
@@ -328,8 +370,13 @@
 
         <!-- CONTACT TAB -->
         <section id="tab-contact" class="tab-panel">
-          <h2>Контакты</h2>
-          <p class="tab-hint">Отображается на странице contact.html.</p>
+          <div class="section-heading">
+            <span class="section-icon"><i class="ph ph-envelope"></i></span>
+            <div class="section-heading-text">
+              <h2>Контакты</h2>
+              <p class="tab-hint">Отображается на странице contact.html.</p>
+            </div>
+          </div>
           <form id="form-contact" class="content-form">
             <label>Email
               <input type="email" data-key="contact_email" placeholder="you@example.com">
@@ -347,7 +394,12 @@
 
         <!-- MISC TAB -->
         <section id="tab-misc" class="tab-panel">
-          <h2>Прочее</h2>
+          <div class="section-heading">
+            <span class="section-icon"><i class="ph ph-sliders"></i></span>
+            <div class="section-heading-text">
+              <h2>Прочее</h2>
+            </div>
+          </div>
           <form id="form-misc" class="content-form">
             <label>Имя в футере (копирайт)
               <input type="text" data-key="footer_name" placeholder="Ravil Boyukzade">
@@ -359,11 +411,16 @@
 
         <!-- PORTFOLIO TAB -->
         <section id="tab-portfolio" class="tab-panel">
-          <h2>Проекты портфолио</h2>
-          <p class="tab-hint">
-            Категория определяет вкладку на portfolio.html: <b>frontend</b>, <b>backend</b>,
-            <b>business</b>, <b>analytics</b>. «Показывать на главной» — попадёт в Featured Projects.
-          </p>
+          <div class="section-heading">
+            <span class="section-icon"><i class="ph ph-code-block"></i></span>
+            <div class="section-heading-text">
+              <h2>Проекты портфолио</h2>
+              <p class="tab-hint">
+                Категория определяет вкладку на portfolio.html: <b>frontend</b>, <b>backend</b>,
+                <b>business</b>, <b>analytics</b>. «Показывать на главной» — попадёт в Featured Projects.
+              </p>
+            </div>
+          </div>
           <button id="new-project-btn" class="btn btn-primary" style="margin-bottom:16px;">
             <i class="ph ph-plus"></i> Добавить проект
           </button>
@@ -375,8 +432,13 @@
 
           <!-- Blog: list view -->
           <div id="blog-list-view">
-            <h2>Статьи блога</h2>
-            <p class="tab-hint">Управляй записями, которые видят посетители на странице blog.html.</p>
+            <div class="section-heading">
+              <span class="section-icon"><i class="ph ph-newspaper-clipping"></i></span>
+              <div class="section-heading-text">
+                <h2>Статьи блога</h2>
+                <p class="tab-hint">Управляй записями, которые видят посетители на странице blog.html.</p>
+              </div>
+            </div>
             <div class="blog-toolbar-top">
               <button id="new-post-btn" class="btn btn-primary"><i class="ph ph-plus"></i> Новый пост</button>
             </div>
@@ -407,13 +469,18 @@
               </div>
 
               <label>Обложка (для карточки в списке статей)
-                <div class="image-field">
-                  <img class="image-preview" id="post-cover-preview" alt="preview">
-                  <input type="text" id="post-cover-url" placeholder="URL обложки">
-                  <label class="btn btn-ghost btn-sm upload-btn">
-                    <i class="ph ph-upload-simple"></i> Cloudinary
-                    <input type="file" accept="image/*" class="cloudinary-upload" data-target-input="post-cover-url" hidden>
-                  </label>
+                <div class="media-field">
+                  <div class="media-preview" id="preview-post-cover"></div>
+                  <div class="media-field-controls">
+                    <input type="text" id="post-cover-url" data-media-preview="preview-post-cover" placeholder="Вставь ссылку с Cloudinary">
+                    <div class="media-field-actions">
+                      <label class="btn btn-ghost btn-sm upload-btn">
+                        <i class="ph ph-upload-simple"></i> Загрузить файл
+                        <input type="file" accept="image/*" class="cloudinary-upload" data-target-input="post-cover-url" hidden>
+                      </label>
+                      <span class="media-hint">Совет: залей файл на <b>cloudinary.com</b> → скопируй ссылку → вставь сюда</span>
+                    </div>
+                  </div>
                 </div>
               </label>
 
@@ -512,7 +579,7 @@
                 <label style="margin-bottom:10px; display:block;"><b>Прикреплённый файл для скачивания</b> (необязательно)</label>
                 <div class="grid-2">
                   <label>Ссылка на файл (Cloudinary)
-                    <div class="image-field">
+                    <div class="file-link-field">
                       <input type="text" id="post-attachment-url" placeholder="https://res.cloudinary.com/.../file.pdf">
                       <label class="btn btn-ghost btn-sm upload-btn">
                         <i class="ph ph-upload-simple"></i> Загрузить
@@ -579,28 +646,34 @@
         <label>Ссылка на проект
           <input type="text" id="project-url" placeholder="https://... или index.html">
         </label>
-        <div class="grid-2">
-          <label>Изображение 1
-            <div class="image-field">
-              <img class="image-preview" id="project-image-1-preview" alt="preview">
-              <input type="text" id="project-image-1" placeholder="URL изображения">
-              <label class="btn btn-ghost btn-sm upload-btn">
-                <i class="ph ph-upload-simple"></i> Cloudinary
-                <input type="file" accept="image/*" class="cloudinary-upload" data-target-input="project-image-1" hidden>
-              </label>
+        <label>Изображение 1
+          <div class="media-field">
+            <div class="media-preview" id="preview-project-image-1"></div>
+            <div class="media-field-controls">
+              <input type="text" id="project-image-1" data-media-preview="preview-project-image-1" placeholder="Вставь ссылку с Cloudinary">
+              <div class="media-field-actions">
+                <label class="btn btn-ghost btn-sm upload-btn">
+                  <i class="ph ph-upload-simple"></i> Загрузить файл
+                  <input type="file" accept="image/*" class="cloudinary-upload" data-target-input="project-image-1" hidden>
+                </label>
+              </div>
             </div>
-          </label>
-          <label>Изображение 2 (при наведении)
-            <div class="image-field">
-              <img class="image-preview" id="project-image-2-preview" alt="preview">
-              <input type="text" id="project-image-2" placeholder="URL изображения">
-              <label class="btn btn-ghost btn-sm upload-btn">
-                <i class="ph ph-upload-simple"></i> Cloudinary
-                <input type="file" accept="image/*" class="cloudinary-upload" data-target-input="project-image-2" hidden>
-              </label>
+          </div>
+        </label>
+        <label>Изображение 2 (при наведении)
+          <div class="media-field">
+            <div class="media-preview" id="preview-project-image-2"></div>
+            <div class="media-field-controls">
+              <input type="text" id="project-image-2" data-media-preview="preview-project-image-2" placeholder="Вставь ссылку с Cloudinary">
+              <div class="media-field-actions">
+                <label class="btn btn-ghost btn-sm upload-btn">
+                  <i class="ph ph-upload-simple"></i> Загрузить файл
+                  <input type="file" accept="image/*" class="cloudinary-upload" data-target-input="project-image-2" hidden>
+                </label>
+              </div>
             </div>
-          </label>
-        </div>
+          </div>
+        </label>
         <label class="checkbox-label">
           <input type="checkbox" id="project-featured">
           Показывать на главной (Featured Projects)
@@ -662,6 +735,37 @@
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
     }[c]));
   }
+
+  // ---------------------------------------------------------------
+  // Media preview (image OR video, auto-detected from the URL) —
+  // used by every "paste a Cloudinary link" field in the panel.
+  // ---------------------------------------------------------------
+  function isVideoUrl(url) {
+    return /\.(mp4|webm|ogg|mov|m4v)(\?|#|$)/i.test(url) || /\/video\/upload\//i.test(url);
+  }
+  function renderMediaPreview(previewEl, url) {
+    if (!previewEl) return;
+    if (!url) {
+      previewEl.innerHTML = '<div class="media-placeholder"><i class="ph ph-image"></i><span>Пока пусто — вставь ссылку</span></div>';
+      return;
+    }
+    if (isVideoUrl(url)) {
+      previewEl.innerHTML = `<video src="${escapeHtml(url)}" muted controls></video>`;
+    } else {
+      previewEl.innerHTML = `<img src="${escapeHtml(url)}" alt="" onerror="this.parentElement.innerHTML='<div class=&quot;media-placeholder&quot;><i class=&quot;ph ph-warning&quot;></i><span>Не удалось загрузить</span></div>'">`;
+    }
+  }
+  function wireMediaInputs(root) {
+    $$("[data-media-preview]", root).forEach((input) => {
+      const preview = document.getElementById(input.dataset.mediaPreview);
+      renderMediaPreview(preview, input.value);
+      if (!input.dataset.mediaWired) {
+        input.dataset.mediaWired = "1";
+        input.addEventListener("input", () => renderMediaPreview(preview, input.value));
+      }
+    });
+  }
+  window.__adminMedia = { renderMediaPreview, wireMediaInputs };
 
   // ---------------------------------------------------------------
   // Theme (dark / light) — remembered in localStorage
@@ -780,10 +884,7 @@
       if (input.dataset.type === "list") input.value = Array.isArray(val) ? val.join(", ") : val || "";
       else input.value = val == null ? "" : val;
     });
-    $$("[data-preview-for]").forEach((img) => {
-      const key = img.dataset.previewFor;
-      if (contentCache[key]) img.src = contentCache[key];
-    });
+    wireMediaInputs(document);
   }
   async function saveFormKeys(form) {
     const inputs = $$("[data-key]", form);
@@ -806,11 +907,7 @@
     if (!form) return;
     form.addEventListener("submit", (e) => { e.preventDefault(); saveFormKeys(form); });
   });
-  $$("[data-preview-for]").forEach((img) => {
-    const key = img.dataset.previewFor;
-    const input = $(`[data-key="${key}"]`);
-    if (input) input.addEventListener("input", () => (img.src = input.value));
-  });
+  wireMediaInputs(document); // static hero/profile media fields
 
   // ---------------------------------------------------------------
   // Cloudinary upload (images / video / raw files)
@@ -841,22 +938,24 @@
         const originalHtml = label ? label.innerHTML : "";
         if (label) label.innerHTML = '<i class="ph ph-spinner"></i> Загрузка...';
         try {
-          const secureUrl = await uploadToCloudinary(file, "image");
+          const resourceType = file.type && file.type.indexOf("video/") === 0 ? "video" : "image";
+          const secureUrl = await uploadToCloudinary(file, resourceType);
           if (!secureUrl) return;
+          let targetInput = null;
           if (fileInput.dataset.targetKey) {
-            const targetInput = $(`[data-key="${fileInput.dataset.targetKey}"]`);
-            if (targetInput) targetInput.value = secureUrl;
-            const preview = $(`[data-preview-for="${fileInput.dataset.targetKey}"]`);
-            if (preview) preview.src = secureUrl;
+            targetInput = $(`[data-key="${fileInput.dataset.targetKey}"]`);
           } else if (fileInput.dataset.targetInput) {
-            const targetInput = document.getElementById(fileInput.dataset.targetInput);
-            if (targetInput) targetInput.value = secureUrl;
-            const preview = document.getElementById(fileInput.dataset.targetInput + "-preview");
-            if (preview) preview.src = secureUrl;
+            targetInput = document.getElementById(fileInput.dataset.targetInput);
+          }
+          if (targetInput) {
+            targetInput.value = secureUrl;
+            if (targetInput.dataset.mediaPreview) {
+              renderMediaPreview(document.getElementById(targetInput.dataset.mediaPreview), secureUrl);
+            }
           }
         } catch (err) {
           console.error(err);
-          alert("Не удалось загрузить изображение: " + err.message);
+          alert("Не удалось загрузить файл: " + err.message);
         } finally {
           if (label) label.innerHTML = originalHtml;
           fileInput.value = "";
@@ -929,16 +1028,16 @@
       $("#project-url").value = project.project_url || "";
       $("#project-image-1").value = project.image_url || "";
       $("#project-image-2").value = project.image_url_2 || "";
-      $("#project-image-1-preview").src = project.image_url || "";
-      $("#project-image-2-preview").src = project.image_url_2 || project.image_url || "";
+      renderMediaPreview($("#preview-project-image-1"), project.image_url || "");
+      renderMediaPreview($("#preview-project-image-2"), project.image_url_2 || project.image_url || "");
       $("#project-featured").checked = !!project.featured;
       $("#project-delete-btn").style.display = "inline-flex";
     } else {
       $("#project-modal-title").textContent = "Новый проект";
       projectForm.reset();
       $("#project-id").value = "";
-      $("#project-image-1-preview").src = "";
-      $("#project-image-2-preview").src = "";
+      renderMediaPreview($("#preview-project-image-1"), "");
+      renderMediaPreview($("#preview-project-image-2"), "");
       $("#project-delete-btn").style.display = "none";
     }
     projectModal.style.display = "flex";
@@ -948,10 +1047,7 @@
   $("#project-modal-close").addEventListener("click", closeProjectModal);
   $("#project-cancel-btn").addEventListener("click", closeProjectModal);
   projectModal.addEventListener("click", (e) => { if (e.target === projectModal) closeProjectModal(); });
-  ["project-image-1", "project-image-2"].forEach((id) => {
-    const input = document.getElementById(id);
-    input.addEventListener("input", () => { document.getElementById(id + "-preview").src = input.value; });
-  });
+  wireMediaInputs(projectModal);
   wireUploadButtons(projectModal);
 
   projectForm.addEventListener("submit", async (e) => {
@@ -1000,6 +1096,8 @@
   const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
   const escapeHtml = window.__adminEscapeHtml;
   const uploadToCloudinary = window.__uploadToCloudinary;
+  const renderMediaPreview = window.__adminMedia.renderMediaPreview;
+  const wireMediaInputs = window.__adminMedia.wireMediaInputs;
 
   function nowForDatetimeInput() {
     const d = new Date();
@@ -1029,6 +1127,19 @@
       $("#generic-modal-title").textContent = title;
       $("#generic-modal-body").innerHTML = bodyHtml;
       genericModal.style.display = "flex";
+      wireMediaInputs($("#generic-modal-body"));
+
+      // If a file input sits next to a media-preview field, show a local preview too
+      $$('input[type="file"]', $("#generic-modal-body")).forEach((fileInput) => {
+        fileInput.addEventListener("change", () => {
+          const file = fileInput.files[0];
+          const preview = $("#modal-media-preview");
+          if (file && preview) {
+            const objectUrl = URL.createObjectURL(file);
+            renderMediaPreview(preview, objectUrl);
+          }
+        });
+      });
 
       const confirmBtn = $("#generic-modal-confirm");
       const cancelBtn = $("#generic-modal-cancel");
@@ -1167,15 +1278,22 @@
     });
   }
 
-  // Image insert (upload to Cloudinary OR paste a ready link)
+  // Image insert (paste a Cloudinary link first — or upload as a shortcut)
   const imageBtn = $("#tb-image");
   if (imageBtn) {
     imageBtn.addEventListener("mousedown", (e) => { e.preventDefault(); saveSelection(); });
     imageBtn.addEventListener("click", async () => {
       const ok = await showGenericModal(
         "Вставить изображение",
-        `<label>Загрузить файл на Cloudinary<input type="file" id="modal-image-file" accept="image/*"></label>
-         <label>…или вставить готовую ссылку<input type="text" id="modal-image-url" placeholder="https://res.cloudinary.com/.../photo.jpg"></label>`
+        `<div class="media-preview" id="modal-media-preview" style="width:100%;height:180px;margin-bottom:14px;"></div>
+         <label>Ссылка на изображение (Cloudinary)
+           <input type="text" id="modal-image-url" data-media-preview="modal-media-preview" placeholder="https://res.cloudinary.com/.../photo.jpg">
+         </label>
+         <label class="btn btn-ghost btn-sm upload-btn" style="margin-top:4px;">
+           <i class="ph ph-upload-simple"></i> ...или загрузить файл на Cloudinary
+           <input type="file" id="modal-image-file" accept="image/*" hidden>
+         </label>
+         <span class="media-hint" style="display:block;margin-top:8px;">Совет: залей файл на <b>cloudinary.com</b>, скопируй ссылку и вставь выше.</span>`
       );
       if (!ok) return;
       const file = $("#modal-image-file").files[0];
@@ -1190,15 +1308,22 @@
     });
   }
 
-  // Video insert (upload to Cloudinary OR paste a ready Cloudinary video link)
+  // Video insert (paste a Cloudinary link first — or upload as a shortcut)
   const videoBtn = $("#tb-video");
   if (videoBtn) {
     videoBtn.addEventListener("mousedown", (e) => { e.preventDefault(); saveSelection(); });
     videoBtn.addEventListener("click", async () => {
       const ok = await showGenericModal(
         "Вставить видео",
-        `<label>Загрузить видеофайл на Cloudinary<input type="file" id="modal-video-file" accept="video/*"></label>
-         <label>…или вставить готовую ссылку на видео (Cloudinary)<input type="text" id="modal-video-url" placeholder="https://res.cloudinary.com/.../video.mp4"></label>`
+        `<div class="media-preview" id="modal-media-preview" style="width:100%;height:180px;margin-bottom:14px;"></div>
+         <label>Ссылка на видео (Cloudinary)
+           <input type="text" id="modal-video-url" data-media-preview="modal-media-preview" placeholder="https://res.cloudinary.com/.../video.mp4">
+         </label>
+         <label class="btn btn-ghost btn-sm upload-btn" style="margin-top:4px;">
+           <i class="ph ph-upload-simple"></i> ...или загрузить видеофайл на Cloudinary
+           <input type="file" id="modal-video-file" accept="video/*" hidden>
+         </label>
+         <span class="media-hint" style="display:block;margin-top:8px;">Совет: залей файл на <b>cloudinary.com</b>, скопируй ссылку и вставь выше.</span>`
       );
       if (!ok) return;
       const file = $("#modal-video-file").files[0];
@@ -1315,7 +1440,7 @@
       $("#post-excerpt").value = post.excerpt || "";
       $("#post-tags").value = (post.tags || []).join(", ");
       $("#post-cover-url").value = post.cover_image_url || "";
-      $("#post-cover-preview").src = post.cover_image_url || "";
+      renderMediaPreview($("#preview-post-cover"), post.cover_image_url || "");
       $("#post-attachment-url").value = post.attachment_url || "";
       $("#post-attachment-label").value = post.attachment_label || "";
       editor.innerHTML = post.content_html || "";
@@ -1328,7 +1453,7 @@
       postForm.reset();
       $("#post-id").value = "";
       editor.innerHTML = "";
-      $("#post-cover-preview").src = "";
+      renderMediaPreview($("#preview-post-cover"), "");
       $("#post-published-at").value = nowForDatetimeInput();
       $("#post-delete-btn").classList.add("hidden");
     }
@@ -1344,7 +1469,7 @@
   $("#post-back-btn").addEventListener("click", closePostEditor);
   $("#post-cancel-btn").addEventListener("click", closePostEditor);
 
-  $("#post-cover-url").addEventListener("input", (e) => { $("#post-cover-preview").src = e.target.value; });
+  // post-cover-url live preview is wired generically via wireMediaInputs()
 
   // auto-slug from title, unless user already typed their own slug
   let slugTouched = false;

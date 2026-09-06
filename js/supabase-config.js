@@ -3,12 +3,12 @@
 // =========================================================================
 window.SITE_CONFIG = {
   // Supabase → Project Settings → API
-  SUPABASE_URL: "https://qajvgcwrhkrnohhbsbad.supabase.co",
-  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhanZnY3dyaGtybm9oaGJzYmFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMyNTIzODAsImV4cCI6MjA5ODgyODM4MH0.94KsNMRAN_-C7mBeJzu9hhBynJAE9oFytqK-ihWdBj4",
+  SUPABASE_URL: "https://ewcifgqrhlxeuabygkyl.supabase.co",
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV3Y2lmZ3FyaGx4ZXVhYnlna3lsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNjA0OTQsImV4cCI6MjEwMTkzNjQ5NH0.YxY2SEMMHjX85NcSxecxYN_0VGxirjDPaKgnwgit6Fg",
 
   // Cloudinary → Settings → Upload → Upload presets (unsigned preset)
-  CLOUDINARY_CLOUD_NAME: "YOUR-CLOUDINARY-CLOUD-NAME",
-  CLOUDINARY_UPLOAD_PRESET: "YOUR-UNSIGNED-UPLOAD-PRESET",
+  CLOUDINARY_CLOUD_NAME: "raegbpgo",
+  CLOUDINARY_UPLOAD_PRESET: "portfolio",
 };
 
 // Единый Supabase-клиент, которым пользуются и сайт, и админка.

@@ -11,56 +11,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&family=Nunito:wght@400;700&family=Playfair+Display:wght@400;700&family=Merriweather:wght@400;700&family=Lora:wght@400;700&family=PT+Serif:wght@400;700&family=Oswald:wght@400;700&family=Rubik:wght@400;700&family=Space+Grotesk:wght@400;700&family=Caveat:wght@400;700&family=Pacifico&family=JetBrains+Mono:wght@400;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root, [data-theme="dark"] {
-    --bg: #0f1115;
-    --surface: #171a21;
-    --surface-2: #1f232c;
-    --surface-3: #262b36;
-    --border: #2b303b;
-    --text: #e8eaf0;
-    --text-dim: #9aa1af;
-    --accent: #22c55e;
-    --accent-hover: #16a34a;
-    --accent-soft: rgba(34,197,94,.16);
-    --danger: #e5566d;
-    --success: #4ade80;
-    --warning: #f5b83d;
-    --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --bg: #0f1115; --surface: #171a21; --surface-2: #1f232c; --surface-3: #262b36;
+    --border: #2b303b; --text: #e8eaf0; --text-dim: #9aa1af;
+    --accent: #22c55e; --accent-hover: #16a34a; --accent-soft: rgba(34,197,94,.16);
+    --danger: #e5566d; --success: #4ade80; --warning: #f5b83d; --shadow: 0 10px 30px rgba(0,0,0,.35);
   }
   [data-theme="light"] {
-    --bg: #f4f6f5;
-    --surface: #ffffff;
-    --surface-2: #f0f2f1;
-    --surface-3: #e6e9e7;
-    --border: #dde1de;
-    --text: #1b2420;
-    --text-dim: #667169;
-    --accent: #16a34a;
-    --accent-hover: #128038;
-    --accent-soft: rgba(22,163,74,.12);
-    --danger: #d13a52;
-    --success: #16a34a;
-    --warning: #b6790a;
-    --shadow: 0 10px 30px rgba(0,0,0,.08);
+    --bg: #f4f6f5; --surface: #ffffff; --surface-2: #f0f2f1; --surface-3: #e6e9e7;
+    --border: #dde1de; --text: #1b2420; --text-dim: #667169;
+    --accent: #16a34a; --accent-hover: #128038; --accent-soft: rgba(22,163,74,.12);
+    --danger: #d13a52; --success: #16a34a; --warning: #b6790a; --shadow: 0 10px 30px rgba(0,0,0,.08);
   }
-
   * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    transition: background .2s, color .2s;
-  }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: "Segoe UI", Roboto, Arial, sans-serif; transition: background .2s, color .2s; }
   img { max-width: 100%; }
   a { color: var(--accent); }
 
-  /* ---------------- config warning ---------------- */
   .config-warning { position: fixed; inset: 0; background: rgba(0,0,0,.75); display: flex; align-items: center; justify-content: center; z-index: 999; padding: 20px; }
   .config-warning-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 32px; max-width: 480px; text-align: center; }
   .config-warning-box i { font-size: 40px; color: var(--warning); }
   .config-warning-box code { background: var(--surface-2); padding: 2px 6px; border-radius: 4px; color: var(--accent); }
 
-  /* ---------------- login ---------------- */
   .login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; background: radial-gradient(circle at top, var(--surface-2), var(--bg) 65%); }
   .login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px 32px; width: 100%; max-width: 380px; text-align: center; box-shadow: var(--shadow); }
   .login-logo { width: 56px; height: 56px; border-radius: 12px; margin-bottom: 16px; }
@@ -69,7 +40,6 @@
   .login-card label { display: block; text-align: left; font-size: 13px; color: var(--text-dim); margin-bottom: 14px; }
   .login-card input { display: block; width: 100%; margin-top: 6px; }
 
-  /* ---------------- form controls ---------------- */
   input[type="text"], input[type="email"], input[type="password"], input[type="url"],
   input[type="number"], input[type="tel"], input[type="datetime-local"], input[type="file"],
   textarea, select {
@@ -83,7 +53,6 @@
   .checkbox-label { display: flex; align-items: center; gap: 8px; color: var(--text); }
   .checkbox-label input { width: auto; }
 
-  /* ---------------- buttons ---------------- */
   .btn { display: inline-flex; align-items: center; gap: 6px; border: none; border-radius: 8px; padding: 10px 16px; font-size: 14px; cursor: pointer; text-decoration: none; white-space: nowrap; font-family: inherit; }
   .btn-primary { background: var(--accent); color: #08210f; font-weight: 600; }
   .btn-primary:hover { background: var(--accent-hover); color: #fff; }
@@ -94,7 +63,6 @@
   .btn-block { width: 100%; justify-content: center; }
   .btn:disabled { opacity: .5; cursor: not-allowed; }
 
-  /* ---------------- header ---------------- */
   .admin-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; background: var(--surface); border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 10px; }
   .admin-header-left, .admin-header-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .admin-logo { width: 32px; height: 32px; border-radius: 8px; }
@@ -104,9 +72,8 @@
   .theme-toggle { background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text); font-size: 16px; }
   .theme-toggle:hover { border-color: var(--accent); }
 
-  /* ---------------- body layout ---------------- */
   .admin-body { display: flex; min-height: calc(100vh - 65px); }
-  .admin-nav { width: 230px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); padding: 20px 12px; display: flex; flex-direction: column; gap: 4px; }
+  .admin-nav { width: 230px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); padding: 20px 12px; display: flex; flex-direction: column; gap: 4px; overflow-y: auto; }
   .nav-btn { display: flex; align-items: center; gap: 10px; background: transparent; border: none; color: var(--text-dim); padding: 10px 14px; border-radius: 8px; cursor: pointer; font-size: 14px; text-align: left; font-family: inherit; }
   .nav-btn:hover { background: var(--surface-2); color: var(--text); }
   .nav-btn.active { background: var(--accent); color: #08210f; font-weight: 600; }
@@ -123,12 +90,8 @@
   .save-status { margin-left: 12px; font-size: 13px; color: var(--success); }
   .form-error { color: var(--danger); font-size: 13px; margin-top: 10px; min-height: 18px; }
 
-  /* ---------------- media field (image/video url + live preview) ---------------- */
   .media-field { display: flex; gap: 16px; margin-top: 8px; align-items: flex-start; flex-wrap: wrap; }
-  .media-preview {
-    width: 180px; height: 120px; flex-shrink: 0; border-radius: 12px; background: var(--surface-2);
-    border: 1.5px dashed var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center;
-  }
+  .media-preview { width: 180px; height: 120px; flex-shrink: 0; border-radius: 12px; background: var(--surface-2); border: 1.5px dashed var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; }
   .media-preview img, .media-preview video { width: 100%; height: 100%; object-fit: cover; display: block; }
   .media-placeholder { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-dim); font-size: 11.5px; text-align: center; padding: 0 10px; }
   .media-placeholder i { font-size: 26px; opacity: .7; }
@@ -141,17 +104,11 @@
   .file-link-field { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
   .file-link-field input[type="text"] { margin-top: 0; flex: 1; }
 
-  /* ---------------- section headings with icon badge ---------------- */
   .section-heading { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; }
-  .section-icon {
-    width: 46px; height: 46px; border-radius: 13px; background: var(--accent-soft); color: var(--accent);
-    display: flex; align-items: center; justify-content: center; font-size: 21px; flex-shrink: 0;
-  }
+  .section-icon { width: 46px; height: 46px; border-radius: 13px; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 21px; flex-shrink: 0; }
   .section-heading-text h2 { margin: 0 0 4px; }
   .section-heading-text .tab-hint { margin-bottom: 0; }
 
-
-  /* ---------------- generic lists (portfolio/blog) ---------------- */
   .projects-list, .posts-list { display: flex; flex-direction: column; gap: 10px; }
   .project-row, .post-row { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; }
   .project-row img, .post-row img { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; flex-shrink: 0; background: var(--surface-2); }
@@ -162,7 +119,6 @@
   .badge.featured, .badge.accent { color: var(--accent); border-color: var(--accent-soft); }
   .row-actions { display: flex; gap: 8px; flex-shrink: 0; }
 
-  /* ---------------- modal ---------------- */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px; overflow-y: auto; z-index: 500; }
   .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; width: 100%; max-width: 640px; padding: 24px; }
   .modal-box.modal-wide { max-width: 980px; }
@@ -170,22 +126,15 @@
   .modal-header h3 { margin: 0; }
   .modal-actions { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
 
-  /* ---------------- blog list view ---------------- */
   .blog-toolbar-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 10px; flex-wrap: wrap; }
 
-  /* ---------------- rich text editor ---------------- */
   .editor-toolbar { display: flex; flex-wrap: wrap; gap: 6px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px 10px 0 0; padding: 8px; align-items: center; }
   .editor-toolbar .sep { width: 1px; height: 24px; background: var(--border); margin: 0 4px; }
   .tb-btn { background: transparent; border: 1px solid transparent; color: var(--text); border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 15px; }
   .tb-btn:hover { background: var(--surface-3); border-color: var(--border); }
-  .tb-btn.active { background: var(--accent-soft); color: var(--accent); }
   .tb-select { background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 5px 8px; font-size: 13px; max-width: 150px; }
   .tb-color-wrap { display: flex; align-items: center; gap: 4px; }
-
-  .editor-surface {
-    min-height: 380px; background: var(--surface); border: 1px solid var(--border); border-top: none;
-    border-radius: 0 0 10px 10px; padding: 20px 24px; font-size: 16px; line-height: 1.7; outline: none;
-  }
+  .editor-surface { min-height: 380px; background: var(--surface); border: 1px solid var(--border); border-top: none; border-radius: 0 0 10px 10px; padding: 20px 24px; font-size: 16px; line-height: 1.7; outline: none; }
   .editor-surface:focus { border-color: var(--accent); }
   .editor-surface img, .editor-surface video { max-width: 100%; border-radius: 10px; margin: 12px 0; display: block; }
   .editor-surface pre.code-block, .post-content pre.code-block {
@@ -193,13 +142,24 @@
     overflow-x: auto; font-family: "JetBrains Mono", "Fira Code", monospace; font-size: 13.5px; margin: 14px 0; position: relative;
   }
   .code-block-lang { position: absolute; top: 8px; right: 12px; font-size: 11px; color: var(--accent); opacity: .8; text-transform: uppercase; letter-spacing: .05em; }
-  .editor-surface blockquote, .post-content blockquote {
-    border-left: 3px solid var(--accent); margin: 14px 0; padding: 4px 16px; color: var(--text-dim); font-style: italic;
-  }
-
+  .editor-surface blockquote, .post-content blockquote { border-left: 3px solid var(--accent); margin: 14px 0; padding: 4px 16px; color: var(--text-dim); font-style: italic; }
   .file-attachment-box { border: 1px dashed var(--border); border-radius: 10px; padding: 14px; margin-top: 6px; }
 
-  /* mini utility */
+  /* ---------------- repeatable list editor (services/experience/education/certificates) ---------------- */
+  .repeat-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+  .list-item-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .list-item-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+  .list-item-title { font-weight: 600; font-size: 14px; }
+  .list-item-actions { display: flex; gap: 4px; flex-shrink: 0; }
+  .list-item-actions .btn { padding: 4px 8px; }
+  .list-item-body { display: flex; flex-direction: column; gap: 10px; }
+  .list-item-body label { margin-bottom: 0; }
+  .list-empty-hint { color: var(--text-dim); font-size: 13px; padding: 10px 0; }
+  .add-item-row { margin-top: 12px; }
+  .section-block { margin-bottom: 36px; padding-bottom: 30px; border-bottom: 1px solid var(--border); }
+  .section-block:last-child { border-bottom: none; }
+  .section-block h3 { margin: 0 0 4px; font-size: 17px; }
+
   .mt-16 { margin-top: 16px; }
   .flex-1 { flex: 1; }
   .hidden { display: none !important; }
@@ -262,8 +222,10 @@
     <div class="admin-body">
       <nav class="admin-nav">
         <button class="nav-btn active" data-tab="hero"><i class="ph ph-house"></i> <span>Главная / Hero</span></button>
+        <button class="nav-btn" data-tab="about"><i class="ph ph-info"></i> <span>Обо мне</span></button>
         <button class="nav-btn" data-tab="profile"><i class="ph ph-user-circle"></i> <span>Профиль и соцсети</span></button>
         <button class="nav-btn" data-tab="contact"><i class="ph ph-envelope"></i> <span>Контакты</span></button>
+        <button class="nav-btn" data-tab="resume"><i class="ph ph-file-text"></i> <span>Резюме</span></button>
         <button class="nav-btn" data-tab="misc"><i class="ph ph-sliders"></i> <span>Прочее</span></button>
         <button class="nav-btn" data-tab="portfolio"><i class="ph ph-code-block"></i> <span>Портфолио</span></button>
         <button class="nav-btn" data-tab="blog"><i class="ph ph-newspaper-clipping"></i> <span>Блог</span></button>
@@ -316,6 +278,46 @@
             <button type="submit" class="btn btn-primary">Сохранить</button>
             <span class="save-status"></span>
           </form>
+        </section>
+
+        <!-- ABOUT TAB -->
+        <section id="tab-about" class="tab-panel">
+          <div class="section-heading">
+            <span class="section-icon"><i class="ph ph-info"></i></span>
+            <div class="section-heading-text">
+              <h2>Обо мне</h2>
+              <p class="tab-hint">Текст под приветствием и блок «What I do» на главной странице.</p>
+            </div>
+          </div>
+
+          <form id="form-about" class="content-form">
+            <label>Текст под приветствием (поддерживает HTML-ссылки вида &lt;a href="..."&gt;текст&lt;/a&gt;)
+              <textarea data-key="about_text_html" rows="3" placeholder="Расскажи о себе в паре предложений..."></textarea>
+            </label>
+
+            <div class="section-block">
+              <h3>Блок «What I do»</h3>
+              <label>Заголовок блока
+                <input type="text" data-key="services_title" placeholder="What I do">
+              </label>
+              <label>Подзаголовок (поддерживает HTML-ссылки)
+                <textarea data-key="services_subtitle" rows="3"></textarea>
+              </label>
+              <button type="submit" class="btn btn-primary">Сохранить текст</button>
+              <span class="save-status"></span>
+            </div>
+          </form>
+
+          <div class="section-block">
+            <h3>Карточки услуг</h3>
+            <p class="tab-hint">Показываются в сетке блока «What I do» на главной странице.</p>
+            <div class="repeat-list" id="list-services"></div>
+            <div class="add-item-row">
+              <button type="button" class="btn btn-ghost btn-sm" data-add-list="services"><i class="ph ph-plus"></i> Добавить карточку</button>
+              <button type="button" class="btn btn-primary btn-sm" data-save-list="services" style="margin-left:10px;">Сохранить карточки</button>
+              <span class="save-status" id="save-status-services"></span>
+            </div>
+          </div>
         </section>
 
         <!-- PROFILE TAB -->
@@ -387,6 +389,31 @@
             <label>Локация
               <input type="text" data-key="contact_location" placeholder="Baku, Azerbaijan">
             </label>
+            <div class="section-block" style="margin-top:20px;">
+              <h3>Заголовки секций</h3>
+              <label>Заголовок страницы
+                <input type="text" data-key="contact_page_title" placeholder="Contact">
+              </label>
+              <div class="grid-2">
+                <label>Заголовок «Contact Details»
+                  <input type="text" data-key="contact_details_title" placeholder="Contact Details">
+                </label>
+                <label>Заголовок «Get In Touch»
+                  <input type="text" data-key="get_in_touch_title" placeholder="Get In Touch">
+                </label>
+              </div>
+              <div class="grid-2">
+                <label>Подзаголовок «Contact Details»
+                  <textarea data-key="contact_details_subtitle" rows="2"></textarea>
+                </label>
+                <label>Подзаголовок «Get In Touch»
+                  <textarea data-key="get_in_touch_subtitle" rows="2"></textarea>
+                </label>
+              </div>
+              <label>Ссылка на Google Maps (embed URL)
+                <input type="text" data-key="contact_map_embed_url" placeholder="https://www.google.com/maps/embed?...">
+              </label>
+            </div>
             <button type="submit" class="btn btn-primary">Сохранить</button>
             <span class="save-status"></span>
           </form>
@@ -404,7 +431,152 @@
             <label>Имя в футере (копирайт)
               <input type="text" data-key="footer_name" placeholder="Ravil Boyukzade">
             </label>
+            <div class="section-block">
+              <h3>Блок «Let's Work Together»</h3>
+              <label>Заголовок
+                <input type="text" data-key="cta_title">
+              </label>
+              <label>Подзаголовок
+                <textarea data-key="cta_subtitle" rows="2"></textarea>
+              </label>
+            </div>
+            <div class="section-block">
+              <h3>Блок «Featured Projects»</h3>
+              <label>Заголовок
+                <input type="text" data-key="featured_projects_title">
+              </label>
+              <label>Подзаголовок
+                <textarea data-key="featured_projects_subtitle" rows="2"></textarea>
+              </label>
+            </div>
+            <div class="section-block">
+              <h3>Блок «My GitHub projects»</h3>
+              <label>Заголовок
+                <input type="text" data-key="github_title">
+              </label>
+              <label>Подзаголовок
+                <textarea data-key="github_subtitle" rows="2"></textarea>
+              </label>
+            </div>
             <button type="submit" class="btn btn-primary">Сохранить</button>
+            <span class="save-status"></span>
+          </form>
+        </section>
+
+        <!-- RESUME TAB -->
+        <section id="tab-resume" class="tab-panel">
+          <div class="section-heading">
+            <span class="section-icon"><i class="ph ph-file-text"></i></span>
+            <div class="section-heading-text">
+              <h2>Резюме</h2>
+              <p class="tab-hint">Полностью управляет содержимым страницы resume.html.</p>
+            </div>
+          </div>
+
+          <form id="form-resume" class="content-form">
+            <div class="section-block">
+              <h3>Шапка резюме</h3>
+              <div class="grid-2">
+                <label>Имя
+                  <input type="text" data-key="resume_name" placeholder="Ravil Boyukzade">
+                </label>
+                <label>Должность
+                  <input type="text" data-key="resume_title" placeholder="FULL-STACK DEVELOPER">
+                </label>
+              </div>
+              <div class="grid-2">
+                <label>Веб-сайт
+                  <input type="text" data-key="resume_website" placeholder="https://ravilboyukzade.github.io/">
+                </label>
+                <label>Локация
+                  <input type="text" data-key="resume_location" placeholder="Baku, Azerbaijan">
+                </label>
+              </div>
+              <p class="tab-hint" style="margin:-6px 0 12px;">Телефон и email берутся из вкладки «Контакты».</p>
+              <label>Фото в резюме
+                <div class="media-field">
+                  <div class="media-preview" id="preview-resume_photo_url"></div>
+                  <div class="media-field-controls">
+                    <input type="text" data-key="resume_photo_url" data-media-preview="preview-resume_photo_url" placeholder="Вставь ссылку с Cloudinary">
+                    <div class="media-field-actions">
+                      <label class="btn btn-ghost btn-sm upload-btn">
+                        <i class="ph ph-upload-simple"></i> Загрузить файл
+                        <input type="file" accept="image/*" class="cloudinary-upload" data-target-key="resume_photo_url" hidden>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </label>
+              <label>Ссылка на PDF-версию резюме (кнопка «Download PDF Version»)
+                <div class="file-link-field">
+                  <input type="text" data-key="resume_pdf_url" placeholder="https://res.cloudinary.com/.../resume.pdf">
+                  <label class="btn btn-ghost btn-sm upload-btn">
+                    <i class="ph ph-upload-simple"></i> Загрузить PDF
+                    <input type="file" accept="application/pdf" class="cloudinary-upload" data-target-key="resume_pdf_url" hidden>
+                  </label>
+                </div>
+              </label>
+              <label>О себе (абзац под фото)
+                <textarea data-key="resume_about" rows="4"></textarea>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Сохранить шапку резюме</button>
+            <span class="save-status"></span>
+          </form>
+
+          <div class="section-block">
+            <h3>Опыт работы</h3>
+            <div class="repeat-list" id="list-resume_experience"></div>
+            <div class="add-item-row">
+              <button type="button" class="btn btn-ghost btn-sm" data-add-list="resume_experience"><i class="ph ph-plus"></i> Добавить место работы</button>
+              <button type="button" class="btn btn-primary btn-sm" data-save-list="resume_experience" style="margin-left:10px;">Сохранить опыт работы</button>
+              <span class="save-status" id="save-status-resume_experience"></span>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <h3>Образование</h3>
+            <div class="repeat-list" id="list-resume_education"></div>
+            <div class="add-item-row">
+              <button type="button" class="btn btn-ghost btn-sm" data-add-list="resume_education"><i class="ph ph-plus"></i> Добавить учебное заведение</button>
+              <button type="button" class="btn btn-primary btn-sm" data-save-list="resume_education" style="margin-left:10px;">Сохранить образование</button>
+              <span class="save-status" id="save-status-resume_education"></span>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <h3>Сертификаты</h3>
+            <div class="repeat-list" id="list-resume_certificates"></div>
+            <div class="add-item-row">
+              <button type="button" class="btn btn-ghost btn-sm" data-add-list="resume_certificates"><i class="ph ph-plus"></i> Добавить сертификат</button>
+              <button type="button" class="btn btn-primary btn-sm" data-save-list="resume_certificates" style="margin-left:10px;">Сохранить сертификаты</button>
+              <span class="save-status" id="save-status-resume_certificates"></span>
+            </div>
+          </div>
+
+          <form id="form-resume-lists" class="content-form">
+            <div class="section-block">
+              <h3>Навыки и прочее</h3>
+              <p class="tab-hint">По одному пункту на строку.</p>
+              <div class="grid-2">
+                <label>Технические навыки
+                  <textarea data-key="resume_skills_technical" data-type="lines" rows="6" placeholder="JavaScript/Angular/React&#10;CSS/Sass/Less"></textarea>
+                </label>
+                <label>Профессиональные навыки
+                  <textarea data-key="resume_skills_professional" data-type="lines" rows="6" placeholder="Effective communication&#10;Team player"></textarea>
+                </label>
+              </div>
+              <div class="grid-2">
+                <label>Языки
+                  <textarea data-key="resume_languages" data-type="lines" rows="4" placeholder="English (upper intermediate)"></textarea>
+                </label>
+                <label>Интересы
+                  <textarea data-key="resume_interests" data-type="lines" rows="4" placeholder="Coding&#10;Running"></textarea>
+                </label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить навыки</button>
             <span class="save-status"></span>
           </form>
         </section>
@@ -430,7 +602,6 @@
         <!-- BLOG TAB -->
         <section id="tab-blog" class="tab-panel">
 
-          <!-- Blog: list view -->
           <div id="blog-list-view">
             <div class="section-heading">
               <span class="section-icon"><i class="ph ph-newspaper-clipping"></i></span>
@@ -445,7 +616,6 @@
             <div id="posts-list" class="posts-list"></div>
           </div>
 
-          <!-- Blog: editor view -->
           <div id="blog-editor-view" class="hidden">
             <div class="blog-toolbar-top">
               <h2 id="post-editor-title" style="margin:0;">Новый пост</h2>
@@ -454,11 +624,9 @@
 
             <form id="post-form" class="content-form">
               <input type="hidden" id="post-id">
-
               <label>Заголовок
                 <input type="text" id="post-title" required placeholder="Заголовок статьи">
               </label>
-
               <div class="grid-2">
                 <label>Slug (ссылка) — заполняется автоматически
                   <input type="text" id="post-slug" placeholder="nazvanie-stati">
@@ -467,7 +635,6 @@
                   <input type="datetime-local" id="post-published-at">
                 </label>
               </div>
-
               <label>Обложка (для карточки в списке статей)
                 <div class="media-field">
                   <div class="media-preview" id="preview-post-cover"></div>
@@ -483,18 +650,14 @@
                   </div>
                 </div>
               </label>
-
               <label>Краткое описание (показывается в списке статей)
                 <textarea id="post-excerpt" rows="2" placeholder="Пара предложений о том, что внутри статьи"></textarea>
               </label>
-
               <label>Теги (через запятую)
                 <input type="text" id="post-tags" placeholder="JavaScript, .NET, Совет дня">
               </label>
-
               <label>Содержание статьи</label>
 
-              <!-- Rich text toolbar -->
               <div class="editor-toolbar" id="editor-toolbar">
                 <select class="tb-select" id="tb-font-family" title="Шрифт">
                   <option value="">Шрифт…</option>
@@ -517,7 +680,6 @@
                   <option value="JetBrains Mono">JetBrains Mono</option>
                   <option value="Fira Code">Fira Code</option>
                 </select>
-
                 <select class="tb-select" id="tb-font-size" title="Размер текста">
                   <option value="">Размер…</option>
                   <option value="13px">Мелкий</option>
@@ -526,16 +688,12 @@
                   <option value="26px">Заголовок</option>
                   <option value="34px">Огромный</option>
                 </select>
-
                 <div class="sep"></div>
-
                 <button type="button" class="tb-btn" data-cmd="bold" title="Жирный"><i class="ph-bold ph-text-b"></i></button>
                 <button type="button" class="tb-btn" data-cmd="italic" title="Курсив"><i class="ph ph-text-italic"></i></button>
                 <button type="button" class="tb-btn" data-cmd="underline" title="Подчёркнутый"><i class="ph ph-text-underline"></i></button>
                 <button type="button" class="tb-btn" data-cmd="strikeThrough" title="Зачёркнутый"><i class="ph ph-text-strikethrough"></i></button>
-
                 <div class="sep"></div>
-
                 <div class="tb-color-wrap" title="Цвет текста">
                   <i class="ph ph-text-aa"></i>
                   <input type="color" id="tb-text-color" value="#e8eaf0">
@@ -544,42 +702,33 @@
                   <i class="ph ph-highlighter-circle"></i>
                   <input type="color" id="tb-highlight-color" value="#fff59d">
                 </div>
-
                 <div class="sep"></div>
-
                 <button type="button" class="tb-btn" data-cmd="justifyLeft" title="По левому краю"><i class="ph ph-text-align-left"></i></button>
                 <button type="button" class="tb-btn" data-cmd="justifyCenter" title="По центру"><i class="ph ph-text-align-center"></i></button>
                 <button type="button" class="tb-btn" data-cmd="justifyRight" title="По правому краю"><i class="ph ph-text-align-right"></i></button>
-
                 <div class="sep"></div>
-
                 <button type="button" class="tb-btn" data-cmd="insertUnorderedList" title="Маркированный список"><i class="ph ph-list-bullets"></i></button>
                 <button type="button" class="tb-btn" data-cmd="insertOrderedList" title="Нумерованный список"><i class="ph ph-list-numbers"></i></button>
                 <button type="button" class="tb-btn" data-cmd="formatBlock:BLOCKQUOTE" title="Цитата"><i class="ph ph-quotes"></i></button>
-
                 <div class="sep"></div>
-
                 <button type="button" class="tb-btn" id="tb-link" title="Ссылка"><i class="ph ph-link"></i></button>
                 <button type="button" class="tb-btn" id="tb-image" title="Вставить изображение"><i class="ph ph-image"></i></button>
                 <button type="button" class="tb-btn" id="tb-video" title="Вставить видео"><i class="ph ph-video-camera"></i></button>
                 <button type="button" class="tb-btn" id="tb-code" title="Блок кода"><i class="ph ph-code"></i></button>
                 <button type="button" class="tb-btn" id="tb-word-import" title="Импорт из Word (.docx)"><i class="ph ph-file-doc"></i></button>
                 <input type="file" id="word-import-input" accept=".docx" hidden>
-
                 <div class="sep"></div>
-
                 <button type="button" class="tb-btn" data-cmd="removeFormat" title="Очистить форматирование"><i class="ph ph-eraser"></i></button>
                 <button type="button" class="tb-btn" data-cmd="undo" title="Отменить"><i class="ph ph-arrow-counter-clockwise"></i></button>
                 <button type="button" class="tb-btn" data-cmd="redo" title="Повторить"><i class="ph ph-arrow-clockwise"></i></button>
               </div>
-
               <div id="post-editor-surface" class="editor-surface" contenteditable="true" data-placeholder="Начни писать статью здесь…"></div>
 
               <div class="file-attachment-box mt-16">
                 <label style="margin-bottom:10px; display:block;"><b>Прикреплённый файл для скачивания</b> (необязательно)</label>
                 <div class="grid-2">
                   <label>Ссылка на файл (Cloudinary)
-                    <div class="file-link-field">
+                    <div class="image-field">
                       <input type="text" id="post-attachment-url" placeholder="https://res.cloudinary.com/.../file.pdf">
                       <label class="btn btn-ghost btn-sm upload-btn">
                         <i class="ph ph-upload-simple"></i> Загрузить
@@ -737,8 +886,7 @@
   }
 
   // ---------------------------------------------------------------
-  // Media preview (image OR video, auto-detected from the URL) —
-  // used by every "paste a Cloudinary link" field in the panel.
+  // Media preview (image OR video, auto-detected from the URL)
   // ---------------------------------------------------------------
   function isVideoUrl(url) {
     return /\.(mp4|webm|ogg|mov|m4v)(\?|#|$)/i.test(url) || /\/video\/upload\//i.test(url);
@@ -776,13 +924,11 @@
     const icon = $("#theme-toggle i");
     if (icon) icon.className = theme === "light" ? "ph ph-moon" : "ph ph-sun";
   }
-  const savedTheme = localStorage.getItem(THEME_KEY) || "dark";
-  applyTheme(savedTheme);
+  applyTheme(localStorage.getItem(THEME_KEY) || "dark");
   const themeToggleBtn = $("#theme-toggle");
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener("click", () => {
-      const current = document.documentElement.getAttribute("data-theme");
-      const next = current === "light" ? "dark" : "light";
+      const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
       localStorage.setItem(THEME_KEY, next);
       applyTheme(next);
     });
@@ -794,8 +940,7 @@
   function tickClock() {
     const el = $("#live-clock");
     if (!el) return;
-    const now = new Date();
-    const formatted = now.toLocaleString("ru-RU", {
+    const formatted = new Date().toLocaleString("ru-RU", {
       weekday: "short", day: "2-digit", month: "long", year: "numeric",
       hour: "2-digit", minute: "2-digit", second: "2-digit",
     });
@@ -809,6 +954,7 @@
     const pad = (n) => String(n).padStart(2, "0");
     return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
   }
+  window.__nowForDatetimeInput = nowForDatetimeInput;
 
   // ---------------------------------------------------------------
   // Auth
@@ -866,48 +1012,64 @@
   });
 
   // ---------------------------------------------------------------
-  // Generic site_content editor (hero / profile / contact / misc)
+  // Generic site_content editor (scalar fields: text / list / lines)
   // ---------------------------------------------------------------
   let contentCache = {};
+  window.__adminContentCache = contentCache;
+
   async function loadAllContent() {
     const { data, error } = await client.from("site_content").select("key, value");
     if (error) { console.error(error); return; }
     contentCache = {};
     data.forEach((row) => (contentCache[row.key] = row.value));
+    window.__adminContentCache = contentCache;
     fillFormsFromCache();
+    if (window.__adminRenderAllLists) window.__adminRenderAllLists(contentCache);
   }
+
   function fillFormsFromCache() {
     $$("[data-key]").forEach((input) => {
       const key = input.dataset.key;
       if (!(key in contentCache)) return;
       const val = contentCache[key];
-      if (input.dataset.type === "list") input.value = Array.isArray(val) ? val.join(", ") : val || "";
-      else input.value = val == null ? "" : val;
+      if (input.dataset.type === "list") {
+        input.value = Array.isArray(val) ? val.join(", ") : val || "";
+      } else if (input.dataset.type === "lines") {
+        input.value = Array.isArray(val) ? val.join("\n") : val || "";
+      } else {
+        input.value = val == null ? "" : val;
+      }
     });
     wireMediaInputs(document);
   }
+
   async function saveFormKeys(form) {
     const inputs = $$("[data-key]", form);
     const statusEl = $(".save-status", form);
-    statusEl.textContent = "Сохранение...";
+    if (statusEl) statusEl.textContent = "Сохранение...";
     const rows = inputs.map((input) => {
       let value;
       if (input.dataset.type === "list") value = input.value.split(",").map((s) => s.trim()).filter(Boolean);
+      else if (input.dataset.type === "lines") value = input.value.split("\n").map((s) => s.trim()).filter(Boolean);
       else value = input.value;
       return { key: input.dataset.key, value };
     });
     const { error } = await client.from("site_content").upsert(rows, { onConflict: "key" });
-    if (error) { statusEl.textContent = "Ошибка: " + error.message; return; }
+    if (error) { if (statusEl) statusEl.textContent = "Ошибка: " + error.message; return; }
     rows.forEach((r) => (contentCache[r.key] = r.value));
-    statusEl.textContent = "Сохранено ✓";
-    setTimeout(() => (statusEl.textContent = ""), 2500);
+    if (statusEl) {
+      statusEl.textContent = "Сохранено ✓";
+      setTimeout(() => (statusEl.textContent = ""), 2500);
+    }
   }
-  ["form-hero", "form-profile", "form-contact", "form-misc"].forEach((id) => {
+  window.__adminSaveFormKeys = saveFormKeys;
+
+  ["form-hero", "form-about", "form-profile", "form-contact", "form-misc", "form-resume", "form-resume-lists"].forEach((id) => {
     const form = $("#" + id);
     if (!form) return;
     form.addEventListener("submit", (e) => { e.preventDefault(); saveFormKeys(form); });
   });
-  wireMediaInputs(document); // static hero/profile media fields
+  wireMediaInputs(document);
 
   // ---------------------------------------------------------------
   // Cloudinary upload (images / video / raw files)
@@ -927,10 +1089,20 @@
     const json = await res.json();
     return json.secure_url;
   }
-  window.__uploadToCloudinary = uploadToCloudinary; // used by editor toolbar below
+  window.__uploadToCloudinary = uploadToCloudinary;
+  window.__adminEscapeHtml = escapeHtml;
+
+  function guessResourceType(file) {
+    if (!file || !file.type) return "auto";
+    if (file.type.indexOf("video/") === 0) return "video";
+    if (file.type.indexOf("image/") === 0) return "image";
+    return "auto"; // pdf / zip / docx / etc.
+  }
 
   function wireUploadButtons(root) {
     $$(".cloudinary-upload", root).forEach((fileInput) => {
+      if (fileInput.dataset.wired) return;
+      fileInput.dataset.wired = "1";
       fileInput.addEventListener("change", async () => {
         const file = fileInput.files[0];
         if (!file) return;
@@ -938,15 +1110,12 @@
         const originalHtml = label ? label.innerHTML : "";
         if (label) label.innerHTML = '<i class="ph ph-spinner"></i> Загрузка...';
         try {
-          const resourceType = file.type && file.type.indexOf("video/") === 0 ? "video" : "image";
+          const resourceType = guessResourceType(file);
           const secureUrl = await uploadToCloudinary(file, resourceType);
           if (!secureUrl) return;
           let targetInput = null;
-          if (fileInput.dataset.targetKey) {
-            targetInput = $(`[data-key="${fileInput.dataset.targetKey}"]`);
-          } else if (fileInput.dataset.targetInput) {
-            targetInput = document.getElementById(fileInput.dataset.targetInput);
-          }
+          if (fileInput.dataset.targetKey) targetInput = $(`[data-key="${fileInput.dataset.targetKey}"]`);
+          else if (fileInput.dataset.targetInput) targetInput = document.getElementById(fileInput.dataset.targetInput);
           if (targetInput) {
             targetInput.value = secureUrl;
             if (targetInput.dataset.mediaPreview) {
@@ -963,16 +1132,16 @@
       });
     });
   }
+  window.__wireUploadButtons = wireUploadButtons;
   wireUploadButtons(document);
 
-  // Attachment file upload (any type) for blog posts
   const attachmentInput = $("#attachment-upload-input");
   if (attachmentInput) {
     attachmentInput.addEventListener("change", async () => {
       const file = attachmentInput.files[0];
       if (!file) return;
       try {
-        const url = await uploadToCloudinary(file, "auto");
+        const url = await uploadToCloudinary(file, guessResourceType(file));
         if (url) $("#post-attachment-url").value = url;
       } catch (err) {
         alert("Не удалось загрузить файл: " + err.message);
@@ -1082,9 +1251,6 @@
     closeProjectModal();
     loadProjects();
   });
-
-  window.__adminEscapeHtml = escapeHtml;
-  window.__adminHelpers = { $, $$, escapeHtml, nowForDatetimeInput, uploadToCloudinary };
 })();
   </script>
   <script>
@@ -1098,29 +1264,216 @@
   const uploadToCloudinary = window.__uploadToCloudinary;
   const renderMediaPreview = window.__adminMedia.renderMediaPreview;
   const wireMediaInputs = window.__adminMedia.wireMediaInputs;
-
-  function nowForDatetimeInput() {
-    const d = new Date();
-    const pad = (n) => String(n).padStart(2, "0");
-    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-  }
+  const wireUploadButtons = window.__wireUploadButtons;
+  const nowForDatetimeInput = window.__nowForDatetimeInput;
 
   function slugify(str) {
     const map = { а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ё:"e",ж:"zh",з:"z",и:"i",й:"i",к:"k",л:"l",м:"m",н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",х:"h",ц:"ts",ч:"ch",ш:"sh",щ:"sch",ъ:"",ы:"y",ь:"",э:"e",ю:"yu",я:"ya" };
-    return String(str || "")
-      .toLowerCase()
-      .split("")
-      .map((ch) => (map[ch] !== undefined ? map[ch] : ch))
-      .join("")
-      .replace(/[^a-z0-9\s-]/g, "")
-      .trim()
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-");
+    return String(str || "").toLowerCase().split("").map((ch) => (map[ch] !== undefined ? map[ch] : ch)).join("")
+      .replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-").replace(/-+/g, "-");
   }
 
-  // ---------------------------------------------------------------
-  // Generic modal (used for image / video / code-block prompts)
-  // ---------------------------------------------------------------
+  // =================================================================
+  // GENERIC REPEATABLE LIST EDITOR
+  // Used for: services, resume_experience, resume_education, resume_certificates
+  // =================================================================
+  const listState = {};   // key -> array of item objects (working copy)
+  const listSchemas = {}; // key -> { fields, titleFn, emptyItem }
+
+  function registerList(key, fields, titleFn, emptyItem) {
+    listSchemas[key] = { fields, titleFn, emptyItem };
+  }
+
+  registerList(
+    "services",
+    [
+      { name: "icon_url", label: "Иконка (ссылка с Cloudinary, SVG/PNG)", type: "image" },
+      { name: "title", label: "Название услуги", type: "text" },
+      { name: "description", label: "Описание", type: "textarea", rows: 3 },
+    ],
+    (item) => item.title,
+    () => ({ icon_url: "", title: "", description: "" })
+  );
+
+  registerList(
+    "resume_experience",
+    [
+      { name: "position", label: "Должность", type: "text" },
+      { name: "company", label: "Компания", type: "text" },
+      { name: "period", label: "Период (например, Dec 2024 - Present)", type: "text" },
+      { name: "location", label: "Локация", type: "text" },
+      { name: "description", label: "Описание компании / роли", type: "textarea", rows: 2 },
+      { name: "bullets", label: "Обязанности и достижения (каждая с новой строки)", type: "lines", rows: 5 },
+    ],
+    (item) => [item.position, item.company].filter(Boolean).join(" — "),
+    () => ({ position: "", company: "", period: "", location: "", description: "", bullets: [] })
+  );
+
+  registerList(
+    "resume_education",
+    [
+      { name: "school", label: "Учебное заведение", type: "text" },
+      { name: "period", label: "Период", type: "text" },
+    ],
+    (item) => item.school,
+    () => ({ school: "", period: "" })
+  );
+
+  registerList(
+    "resume_certificates",
+    [
+      { name: "title", label: "Название", type: "text" },
+      { name: "meta", label: "Год / подпись", type: "text" },
+      { name: "url", label: "Ссылка (необязательно)", type: "text" },
+    ],
+    (item) => item.title,
+    () => ({ title: "", meta: "", url: "" })
+  );
+
+  function getFieldValueForInput(item, field) {
+    if (field.type === "lines") return Array.isArray(item[field.name]) ? item[field.name].join("\n") : "";
+    return item[field.name] || "";
+  }
+  function setFieldValueFromInput(item, field, rawValue) {
+    if (field.type === "lines") item[field.name] = rawValue.split("\n").map((s) => s.trim()).filter(Boolean);
+    else item[field.name] = rawValue;
+  }
+
+  function renderListEditor(key) {
+    const schema = listSchemas[key];
+    const container = document.getElementById("list-" + key);
+    if (!schema || !container) return;
+    const items = listState[key] || [];
+
+    if (!items.length) {
+      container.innerHTML = '<p class="list-empty-hint">Пока пусто. Нажми «Добавить», чтобы создать первую запись.</p>';
+      return;
+    }
+
+    container.innerHTML = items
+      .map((item, idx) => {
+        const fieldsHtml = schema.fields
+          .map((f) => {
+            const val = getFieldValueForInput(item, f);
+            if (f.type === "textarea" || f.type === "lines") {
+              return `<label>${escapeHtml(f.label)}<textarea rows="${f.rows || 3}" data-field="${f.name}">${escapeHtml(val)}</textarea></label>`;
+            }
+            if (f.type === "image") {
+              const previewId = `preview-${key}-${idx}-${f.name}`;
+              return `<label>${escapeHtml(f.label)}
+                <div class="media-field">
+                  <div class="media-preview" id="${previewId}"></div>
+                  <div class="media-field-controls">
+                    <input type="text" data-field="${f.name}" data-media-preview="${previewId}" value="${escapeHtml(val)}" placeholder="Вставь ссылку с Cloudinary">
+                    <div class="media-field-actions">
+                      <label class="btn btn-ghost btn-sm upload-btn">
+                        <i class="ph ph-upload-simple"></i> Загрузить файл
+                        <input type="file" accept="image/*" class="cloudinary-upload" data-target-input="${previewId}-input" hidden>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </label>`;
+            }
+            return `<label>${escapeHtml(f.label)}<input type="text" data-field="${f.name}" value="${escapeHtml(val)}"></label>`;
+          })
+          .join("");
+
+        return `
+          <div class="list-item-card" data-idx="${idx}">
+            <div class="list-item-header">
+              <span class="list-item-title">${escapeHtml(schema.titleFn(item) || "Без названия")}</span>
+              <div class="list-item-actions">
+                <button type="button" class="btn btn-ghost btn-sm li-up" title="Выше"><i class="ph ph-arrow-up"></i></button>
+                <button type="button" class="btn btn-ghost btn-sm li-down" title="Ниже"><i class="ph ph-arrow-down"></i></button>
+                <button type="button" class="btn btn-danger btn-sm li-remove" title="Удалить"><i class="ph ph-trash"></i></button>
+              </div>
+            </div>
+            <div class="list-item-body">${fieldsHtml}</div>
+          </div>`;
+      })
+      .join("");
+
+    // give the image-type inputs a real id matching their upload button's data-target-input
+    $$(".list-item-card", container).forEach((card) => {
+      const idx = parseInt(card.dataset.idx, 10);
+      $$("[data-media-preview]", card).forEach((input) => {
+        input.id = input.dataset.mediaPreview + "-input";
+      });
+    });
+
+    wireMediaInputs(container);
+    wireUploadButtons(container);
+
+    $$(".list-item-card", container).forEach((card) => {
+      const idx = parseInt(card.dataset.idx, 10);
+      const item = items[idx];
+      const schemaFields = schema.fields;
+
+      $$("[data-field]", card).forEach((input) => {
+        input.addEventListener("input", () => {
+          const field = schemaFields.find((f) => f.name === input.dataset.field);
+          setFieldValueFromInput(item, field, input.value);
+          const titleEl = card.querySelector(".list-item-title");
+          if (titleEl) titleEl.textContent = schema.titleFn(item) || "Без названия";
+        });
+      });
+
+      card.querySelector(".li-remove").addEventListener("click", () => {
+        items.splice(idx, 1);
+        renderListEditor(key);
+      });
+      card.querySelector(".li-up").addEventListener("click", () => {
+        if (idx === 0) return;
+        [items[idx - 1], items[idx]] = [items[idx], items[idx - 1]];
+        renderListEditor(key);
+      });
+      card.querySelector(".li-down").addEventListener("click", () => {
+        if (idx === items.length - 1) return;
+        [items[idx + 1], items[idx]] = [items[idx], items[idx + 1]];
+        renderListEditor(key);
+      });
+    });
+  }
+
+  function addListItem(key) {
+    const schema = listSchemas[key];
+    if (!schema) return;
+    if (!listState[key]) listState[key] = [];
+    listState[key].push(schema.emptyItem());
+    renderListEditor(key);
+  }
+
+  async function saveList(key) {
+    const statusEl = document.getElementById("save-status-" + key);
+    if (statusEl) statusEl.textContent = "Сохранение...";
+    const { error } = await client.from("site_content").upsert([{ key, value: listState[key] || [] }], { onConflict: "key" });
+    if (statusEl) {
+      if (error) { statusEl.textContent = "Ошибка: " + error.message; return; }
+      statusEl.textContent = "Сохранено ✓";
+      setTimeout(() => (statusEl.textContent = ""), 2500);
+    }
+    if (window.__adminContentCache) window.__adminContentCache[key] = listState[key] || [];
+  }
+
+  function renderAllLists(contentCache) {
+    Object.keys(listSchemas).forEach((key) => {
+      listState[key] = Array.isArray(contentCache[key]) ? JSON.parse(JSON.stringify(contentCache[key])) : [];
+      renderListEditor(key);
+    });
+  }
+  window.__adminRenderAllLists = renderAllLists;
+  // in case content already loaded before this script ran
+  if (window.__adminContentCache && Object.keys(window.__adminContentCache).length) {
+    renderAllLists(window.__adminContentCache);
+  }
+
+  $$("[data-add-list]").forEach((btn) => btn.addEventListener("click", () => addListItem(btn.dataset.addList)));
+  $$("[data-save-list]").forEach((btn) => btn.addEventListener("click", () => saveList(btn.dataset.saveList)));
+
+  // =================================================================
+  // Generic modal (image / video / code-block prompts)
+  // =================================================================
   const genericModal = $("#generic-modal");
   function showGenericModal(title, bodyHtml) {
     return new Promise((resolve) => {
@@ -1129,22 +1482,17 @@
       genericModal.style.display = "flex";
       wireMediaInputs($("#generic-modal-body"));
 
-      // If a file input sits next to a media-preview field, show a local preview too
       $$('input[type="file"]', $("#generic-modal-body")).forEach((fileInput) => {
         fileInput.addEventListener("change", () => {
           const file = fileInput.files[0];
           const preview = $("#modal-media-preview");
-          if (file && preview) {
-            const objectUrl = URL.createObjectURL(file);
-            renderMediaPreview(preview, objectUrl);
-          }
+          if (file && preview) renderMediaPreview(preview, URL.createObjectURL(file));
         });
       });
 
       const confirmBtn = $("#generic-modal-confirm");
       const cancelBtn = $("#generic-modal-cancel");
       const closeBtn = $("#generic-modal-close");
-
       function cleanup(result) {
         genericModal.style.display = "none";
         confirmBtn.removeEventListener("click", onConfirm);
@@ -1160,23 +1508,20 @@
     });
   }
 
-  // ---------------------------------------------------------------
+  // =================================================================
   // Rich text editor
-  // ---------------------------------------------------------------
+  // =================================================================
   const editor = $("#post-editor-surface");
   let savedRange = null;
 
   function saveSelection() {
     const sel = window.getSelection();
-    if (sel.rangeCount && editor.contains(sel.anchorNode)) {
-      savedRange = sel.getRangeAt(0).cloneRange();
-    }
+    if (sel.rangeCount && editor.contains(sel.anchorNode)) savedRange = sel.getRangeAt(0).cloneRange();
   }
   if (editor) {
     editor.addEventListener("keyup", saveSelection);
     editor.addEventListener("mouseup", saveSelection);
   }
-
   function focusEditorWithSelection() {
     editor.focus();
     if (savedRange) {
@@ -1185,20 +1530,15 @@
       sel.addRange(savedRange);
     }
   }
-
   function insertHtmlAtCursor(html) {
     focusEditorWithSelection();
     document.execCommand("insertHTML", false, html);
     saveSelection();
   }
-
   function wrapSelectionWithStyle(styleProp, value) {
     focusEditorWithSelection();
     const sel = window.getSelection();
-    if (!sel.rangeCount || sel.isCollapsed) {
-      alert("Сначала выдели текст, который нужно изменить.");
-      return;
-    }
+    if (!sel.rangeCount || sel.isCollapsed) { alert("Сначала выдели текст, который нужно изменить."); return; }
     const range = sel.getRangeAt(0);
     const span = document.createElement("span");
     span.style[styleProp] = value;
@@ -1212,23 +1552,17 @@
     savedRange = newRange.cloneRange();
   }
 
-  // Basic execCommand-driven buttons (bold/italic/underline/lists/align/quote/undo/redo/clear)
   $$(".tb-btn[data-cmd]").forEach((btn) => {
-    btn.addEventListener("mousedown", (e) => e.preventDefault()); // keep selection
+    btn.addEventListener("mousedown", (e) => e.preventDefault());
     btn.addEventListener("click", () => {
       focusEditorWithSelection();
       const cmd = btn.dataset.cmd;
-      if (cmd.indexOf(":") !== -1) {
-        const [c, v] = cmd.split(":");
-        document.execCommand(c, false, v);
-      } else {
-        document.execCommand(cmd, false, null);
-      }
+      if (cmd.indexOf(":") !== -1) { const [c, v] = cmd.split(":"); document.execCommand(c, false, v); }
+      else document.execCommand(cmd, false, null);
       saveSelection();
     });
   });
 
-  // Font family
   const fontFamilySelect = $("#tb-font-family");
   if (fontFamilySelect) {
     fontFamilySelect.addEventListener("mousedown", saveSelection);
@@ -1238,37 +1572,27 @@
       fontFamilySelect.value = "";
     });
   }
-  // Font size
   const fontSizeSelect = $("#tb-font-size");
   if (fontSizeSelect) {
     fontSizeSelect.addEventListener("mousedown", saveSelection);
-    fontSizeSelect.addEventListener("change", () => {
-      if (!fontSizeSelect.value) return;
-      wrapSelectionWithStyle("fontSize", fontSizeSelect.value);
-    });
+    fontSizeSelect.addEventListener("change", () => { if (fontSizeSelect.value) wrapSelectionWithStyle("fontSize", fontSizeSelect.value); });
   }
-  // Text color
   const textColorInput = $("#tb-text-color");
   if (textColorInput) {
     textColorInput.addEventListener("mousedown", saveSelection);
     textColorInput.addEventListener("input", () => wrapSelectionWithStyle("color", textColorInput.value));
   }
-  // Highlight color
   const highlightColorInput = $("#tb-highlight-color");
   if (highlightColorInput) {
     highlightColorInput.addEventListener("mousedown", saveSelection);
     highlightColorInput.addEventListener("input", () => wrapSelectionWithStyle("backgroundColor", highlightColorInput.value));
   }
 
-  // Link
   const linkBtn = $("#tb-link");
   if (linkBtn) {
     linkBtn.addEventListener("mousedown", (e) => { e.preventDefault(); saveSelection(); });
     linkBtn.addEventListener("click", async () => {
-      const ok = await showGenericModal(
-        "Вставить ссылку",
-        `<label>URL ссылки<input type="text" id="modal-link-url" placeholder="https://example.com"></label>`
-      );
+      const ok = await showGenericModal("Вставить ссылку", `<label>URL ссылки<input type="text" id="modal-link-url" placeholder="https://example.com"></label>`);
       if (!ok) return;
       const url = $("#modal-link-url").value.trim();
       if (!url) return;
@@ -1278,7 +1602,6 @@
     });
   }
 
-  // Image insert (paste a Cloudinary link first — or upload as a shortcut)
   const imageBtn = $("#tb-image");
   if (imageBtn) {
     imageBtn.addEventListener("mousedown", (e) => { e.preventDefault(); saveSelection(); });
@@ -1286,13 +1609,8 @@
       const ok = await showGenericModal(
         "Вставить изображение",
         `<div class="media-preview" id="modal-media-preview" style="width:100%;height:180px;margin-bottom:14px;"></div>
-         <label>Ссылка на изображение (Cloudinary)
-           <input type="text" id="modal-image-url" data-media-preview="modal-media-preview" placeholder="https://res.cloudinary.com/.../photo.jpg">
-         </label>
-         <label class="btn btn-ghost btn-sm upload-btn" style="margin-top:4px;">
-           <i class="ph ph-upload-simple"></i> ...или загрузить файл на Cloudinary
-           <input type="file" id="modal-image-file" accept="image/*" hidden>
-         </label>
+         <label>Ссылка на изображение (Cloudinary)<input type="text" id="modal-image-url" data-media-preview="modal-media-preview" placeholder="https://res.cloudinary.com/.../photo.jpg"></label>
+         <label class="btn btn-ghost btn-sm upload-btn" style="margin-top:4px;"><i class="ph ph-upload-simple"></i> ...или загрузить файл на Cloudinary<input type="file" id="modal-image-file" accept="image/*" hidden></label>
          <span class="media-hint" style="display:block;margin-top:8px;">Совет: залей файл на <b>cloudinary.com</b>, скопируй ссылку и вставь выше.</span>`
       );
       if (!ok) return;
@@ -1302,13 +1620,10 @@
         if (file) url = await uploadToCloudinary(file, "image");
         if (!url) return;
         insertHtmlAtCursor(`<img src="${url}" alt="">`);
-      } catch (err) {
-        alert("Не удалось вставить изображение: " + err.message);
-      }
+      } catch (err) { alert("Не удалось вставить изображение: " + err.message); }
     });
   }
 
-  // Video insert (paste a Cloudinary link first — or upload as a shortcut)
   const videoBtn = $("#tb-video");
   if (videoBtn) {
     videoBtn.addEventListener("mousedown", (e) => { e.preventDefault(); saveSelection(); });
@@ -1316,13 +1631,8 @@
       const ok = await showGenericModal(
         "Вставить видео",
         `<div class="media-preview" id="modal-media-preview" style="width:100%;height:180px;margin-bottom:14px;"></div>
-         <label>Ссылка на видео (Cloudinary)
-           <input type="text" id="modal-video-url" data-media-preview="modal-media-preview" placeholder="https://res.cloudinary.com/.../video.mp4">
-         </label>
-         <label class="btn btn-ghost btn-sm upload-btn" style="margin-top:4px;">
-           <i class="ph ph-upload-simple"></i> ...или загрузить видеофайл на Cloudinary
-           <input type="file" id="modal-video-file" accept="video/*" hidden>
-         </label>
+         <label>Ссылка на видео (Cloudinary)<input type="text" id="modal-video-url" data-media-preview="modal-media-preview" placeholder="https://res.cloudinary.com/.../video.mp4"></label>
+         <label class="btn btn-ghost btn-sm upload-btn" style="margin-top:4px;"><i class="ph ph-upload-simple"></i> ...или загрузить видеофайл на Cloudinary<input type="file" id="modal-video-file" accept="video/*" hidden></label>
          <span class="media-hint" style="display:block;margin-top:8px;">Совет: залей файл на <b>cloudinary.com</b>, скопируй ссылку и вставь выше.</span>`
       );
       if (!ok) return;
@@ -1332,13 +1642,10 @@
         if (file) url = await uploadToCloudinary(file, "video");
         if (!url) return;
         insertHtmlAtCursor(`<video controls src="${url}"></video>`);
-      } catch (err) {
-        alert("Не удалось вставить видео: " + err.message);
-      }
+      } catch (err) { alert("Не удалось вставить видео: " + err.message); }
     });
   }
 
-  // Code block insert
   const codeBtn = $("#tb-code");
   if (codeBtn) {
     codeBtn.addEventListener("mousedown", (e) => { e.preventDefault(); saveSelection(); });
@@ -1357,7 +1664,6 @@
     });
   }
 
-  // Word (.docx) import via mammoth.js
   const wordImportBtn = $("#tb-word-import");
   const wordImportInput = $("#word-import-input");
   if (wordImportBtn && wordImportInput) {
@@ -1366,27 +1672,20 @@
     wordImportInput.addEventListener("change", async () => {
       const file = wordImportInput.files[0];
       if (!file) return;
-      if (typeof window.mammoth === "undefined") {
-        alert("Библиотека для чтения Word-документов не загрузилась. Проверь подключение к интернету и обнови страницу.");
-        return;
-      }
+      if (typeof window.mammoth === "undefined") { alert("Библиотека для чтения Word-документов не загрузилась. Обнови страницу."); return; }
       try {
         const arrayBuffer = await file.arrayBuffer();
         const result = await window.mammoth.convertToHtml({ arrayBuffer });
         insertHtmlAtCursor(result.value + "<p><br></p>");
-      } catch (err) {
-        alert("Не удалось прочитать документ: " + err.message);
-      } finally {
-        wordImportInput.value = "";
-      }
+      } catch (err) { alert("Не удалось прочитать документ: " + err.message); }
+      finally { wordImportInput.value = ""; }
     });
   }
 
-  // ---------------------------------------------------------------
+  // =================================================================
   // Blog posts CRUD
-  // ---------------------------------------------------------------
+  // =================================================================
   let postsCache = [];
-
   async function loadPosts() {
     if (!client) return;
     const { data, error } = await client.from("blog_posts").select("*").order("published_at", { ascending: false });
@@ -1394,7 +1693,7 @@
     postsCache = data;
     renderPostsList();
   }
-  window.__adminLoadPosts = loadPosts; // called from part A after login
+  window.__adminLoadPosts = loadPosts;
 
   function renderPostsList() {
     const container = $("#posts-list");
@@ -1417,9 +1716,7 @@
             ${(p.tags || []).map((t) => `<span class="badge">${escapeHtml(t)}</span>`).join("")}
           </div>
         </div>
-        <div class="row-actions">
-          <button class="btn btn-ghost btn-sm edit-post-btn"><i class="ph ph-pencil-simple"></i> Изменить</button>
-        </div>`;
+        <div class="row-actions"><button class="btn btn-ghost btn-sm edit-post-btn"><i class="ph ph-pencil-simple"></i> Изменить</button></div>`;
       row.querySelector(".edit-post-btn").addEventListener("click", () => openPostEditor(p));
       container.appendChild(row);
     });
@@ -1469,25 +1766,18 @@
   $("#post-back-btn").addEventListener("click", closePostEditor);
   $("#post-cancel-btn").addEventListener("click", closePostEditor);
 
-  // post-cover-url live preview is wired generically via wireMediaInputs()
-
-  // auto-slug from title, unless user already typed their own slug
   let slugTouched = false;
   $("#post-slug").addEventListener("input", () => { slugTouched = true; });
-  $("#post-title").addEventListener("input", (e) => {
-    if (!slugTouched) $("#post-slug").value = slugify(e.target.value);
-  });
+  $("#post-title").addEventListener("input", (e) => { if (!slugTouched) $("#post-slug").value = slugify(e.target.value); });
 
   postForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const errEl = $("#post-form-error");
     const statusEl = $("#post-save-status");
     errEl.textContent = "";
-
     const id = $("#post-id").value;
     let slug = $("#post-slug").value.trim() || slugify($("#post-title").value);
     const publishedAtLocal = $("#post-published-at").value;
-
     const payload = {
       title: $("#post-title").value.trim(),
       slug: slug,
@@ -1499,17 +1789,11 @@
       attachment_label: $("#post-attachment-label").value.trim(),
       published_at: publishedAtLocal ? new Date(publishedAtLocal).toISOString() : new Date().toISOString(),
     };
-
     statusEl.textContent = "Сохранение...";
     let result;
     if (id) result = await client.from("blog_posts").update(payload).eq("id", id);
     else result = await client.from("blog_posts").insert(payload);
-
-    if (result.error) {
-      statusEl.textContent = "";
-      errEl.textContent = "Ошибка: " + result.error.message;
-      return;
-    }
+    if (result.error) { statusEl.textContent = ""; errEl.textContent = "Ошибка: " + result.error.message; return; }
     statusEl.textContent = "Сохранено ✓";
     loadPosts();
     setTimeout(closePostEditor, 400);

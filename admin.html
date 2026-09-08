@@ -476,6 +476,9 @@
           <form id="form-resume" class="content-form">
             <div class="section-block">
               <h3>Шапка резюме</h3>
+              <label>Заголовок страницы
+                <input type="text" data-key="resume_page_title" placeholder="Online Resume">
+              </label>
               <div class="grid-2">
                 <label>Имя
                   <input type="text" data-key="resume_name" placeholder="Ravil Boyukzade">
@@ -519,6 +522,37 @@
               <label>О себе (абзац под фото)
                 <textarea data-key="resume_about" rows="4"></textarea>
               </label>
+            </div>
+
+            <div class="section-block">
+              <h3>Названия разделов</h3>
+              <p class="tab-hint">Заголовки блоков на странице резюме — обычно не требуют изменений, но можно перевести или переименовать.</p>
+              <div class="grid-2">
+                <label>«Work Experiences»
+                  <input type="text" data-key="resume_section_experience_title" placeholder="Work Experiences">
+                </label>
+                <label>«Skills»
+                  <input type="text" data-key="resume_section_skills_title" placeholder="Skills">
+                </label>
+                <label>«Technical» (подраздел навыков)
+                  <input type="text" data-key="resume_section_skills_technical_label" placeholder="Technical">
+                </label>
+                <label>«Professional» (подраздел навыков)
+                  <input type="text" data-key="resume_section_skills_professional_label" placeholder="Professional">
+                </label>
+                <label>«Education»
+                  <input type="text" data-key="resume_section_education_title" placeholder="Education">
+                </label>
+                <label>«Certificates»
+                  <input type="text" data-key="resume_section_certificates_title" placeholder="Certificates">
+                </label>
+                <label>«Languages»
+                  <input type="text" data-key="resume_section_languages_title" placeholder="Languages">
+                </label>
+                <label>«Interests»
+                  <input type="text" data-key="resume_section_interests_title" placeholder="Interests">
+                </label>
+              </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Сохранить шапку резюме</button>
